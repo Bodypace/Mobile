@@ -1,0 +1,29 @@
+{
+  "general": {
+    "primary": "darkgreen",
+
+    "background": "white",
+    "text": "black",
+
+    "kcal": "black",
+    "protein": "#1E90FF",
+    "carb": "#F4A460",
+    "sugar": "#F4A460",
+    "fat": "#7B68EE",
+    "saturated": "#7B68EE",
+    "salt": "black",
+
+    "amount": "darkgreen"
+  },
+  "components": {
+    "logo": {
+      "main": "black",
+      "inverted": "white"
+    }
+  },
+  "settings": {
+    "separator": "darkgreen",
+    "goals": "red",
+    "meals": "green"
+  }
+}
