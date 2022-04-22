@@ -14,11 +14,9 @@ export const readPrice = item =>
       ? item.buy.price * item.amount / item.buy.amount
       : undefined
 
-
-    // ? (item[field] || 0)
-    // : (item.product[field] || 0) * item.amount) / 100
-
 export const readNutrient = (item, field) =>
-  Math.round(item.__typename === "Product" || item.__typename === "Goal"
-    ? 3000
-    : 5000) / 100
+  Math.round(
+    (item.__typename === "Product" || item.__typename === "Goal")
+      ? item[field] || 0
+      : (item.product[field] || 0) * item.amount / 100
+  )

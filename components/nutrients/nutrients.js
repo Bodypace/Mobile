@@ -2,22 +2,14 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import Nutrient from './nutrient'
 import { readNutrient } from '../../utils/readers'
+import { sumBy } from 'lodash'
 
 
-export default function Nutrients ({ style, valueStyle, fields, items, goal, hideTitle }) {
-  const sumMealTime = (field, items) =>
-    items.reduce(
-      (sum, item) => sum + (readNutrient(item, field) || 0),
-      0
-    )
-
-  const typename = items[0].__typename
-
-  const sum = typename === "MealTime"
-    ? field => items.reduce((sum, mealTime) => sum + (sumMealTime(field, mealTime.eats)), 0)
-    // : typename === "Goal"
-    // ? field => items
-    : field => sumMealTime(field, items)
+export default function Nutrients({ style, valueStyle, fields, items, goal, hideTitle }) {
+  const sumMeal = (items, field) => sumBy(items, item => readNutrient(item, field))
+  const sum = field => items[0].__typename === "MealTime"
+    ? sumBy(items, meal => sumMeal(meal.eats, field))
+    : sumMeal(items, field)
 
   return (
     <View style={[styles.container, style]}>
@@ -27,9 +19,7 @@ export default function Nutrients ({ style, valueStyle, fields, items, goal, hid
           field={field}
           hideTitle={hideTitle}
           valueStyle={valueStyle}
-          // value={sum(field)}
-          value={readNutrient(items[0], field)}
-          // value={100}
+          value={sum(field)}
           goal={goal && goal[field]}
         />
       )}

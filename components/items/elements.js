@@ -41,8 +41,7 @@ const makeNutrient2 = name => ({
   type: "nutrient",
   name,
   values: [
-    // i => i[name]
-    i => 2000
+    i => i[name]
   ]
 })
 
