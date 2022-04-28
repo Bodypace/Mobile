@@ -30,6 +30,7 @@ export const DIET_QUERY = gql`
           product {
             name
             vendor
+            size
             kcal
             protein
             carb

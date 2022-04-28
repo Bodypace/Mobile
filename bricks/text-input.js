@@ -1,5 +1,5 @@
 import React, { useRef, forwardRef, useImperativeHandle } from 'react'
-import { TextInput as TextInputRN } from 'react-native'
+import { View, TextInput as TextInputRN } from 'react-native'
 
 
 const PressState = Object.freeze({
@@ -8,10 +8,18 @@ const PressState = Object.freeze({
   TO_BE_BLURRED: 3,
 })
 
-
 const TextInput = forwardRef((props, ref) => {
   const pressState = useRef(PressState.NOT_PRESSED)
   const inputRef = useRef(null)
+
+  const showPlaceholder = props.onPlaceholder === undefined || props.children === undefined
+  const placeholder = showPlaceholder ? props.placeholder : undefined
+
+  const onFinalLayout = () => {
+    if (props.onPlaceholder) {
+      props.onPlaceholder(showPlaceholder)
+    }
+  }
 
   useImperativeHandle(ref, () => ({
     focus: () => inputRef.current.focus(),
@@ -23,7 +31,7 @@ const TextInput = forwardRef((props, ref) => {
     setTimeout(() => {
       if (pressState.current === PressState.PRESSED) {
         if (props.onLongPress) {
-          if(props.onLongPress()) {
+          if (props.onLongPress()) {
             pressState.current = PressState.TO_BE_BLURRED
           }
         }
@@ -43,12 +51,15 @@ const TextInput = forwardRef((props, ref) => {
   }
 
   return (
-    <TextInputRN
-      ref={inputRef}
-      {...props}
-      onPressIn={onPressIn}
-      onPressOut={onPressOut}
-    />
+    <View onLayout={onFinalLayout} style={props.style}>
+      <TextInputRN
+        ref={inputRef}
+        {...props}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
+        placeholder={placeholder}
+      />
+    </View>
   )
 })
 

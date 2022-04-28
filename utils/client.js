@@ -21,7 +21,8 @@ export function ProvideClient({ children }) {
       }
     }));
 
-    console.log('making request with token: ', token)
+    const { operationName: name } = operation
+    console.log(`making '${name}' request with token: ${token}`)
     return forward(operation);
   })
 

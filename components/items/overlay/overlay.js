@@ -1,37 +1,47 @@
-import React, { useRef } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Separator, Modal } from '../../../bricks'
-import { Field, Fields, Legend, Nutrient, Title } from './elements'
+import React, { useState, useRef } from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import { Separator as PlainSeparator, Modal } from '../../../bricks'
+import { Field, Fields, Legend, Title } from './elements'
 import { Button } from './buttons'
 
 
-export default function Overlay({
-  item, layout, visible, setVisible, action,
-}) {
-  const edit = useRef({})
+const Separator = (props) => <PlainSeparator {...props} style={styles.separator} />
+
+export default function Overlay({ visible, onClose, item, layout, action }) {
+  const [edit, setEdit] = useState({})
   const elements = {
     "title": Title,
-    "separator": key => <Separator key={key} style={styles.separator} />,
+    "separator": key => <Separator key={key} />,
     "legend": Legend,
-    "nutrient": Nutrient,
     "field": Field,
     "fields": Fields,
   }
 
+  const onConfirm = () =>
+    action(item.id, edit)
+      .then(onClose)
+      .catch(e => setErrorMessage(JSON.stringify(e)))
+
   return (
-    <Modal visible={visible} setVisible={setVisible}>
+    <Modal visible={visible} onClose={onClose}>
       {layout.map((element, index) => {
         const type = Array.isArray(element) ? "fields" : element.type
         const Element = elements[type]
-        return Element === undefined ? <></>
-          : <Element key={index} element={element} item={item} edit={edit}/>
+        return Element === undefined ? <></> :
+          <Element
+            key={index}
+            element={element}
+            item={item}
+            edit={edit}
+            setEdit={setEdit}
+          />
       })}
       <View style={styles.buttons}>
         <Button iconName="done" name="Confirm"
-          onPress={() => action(item.id, edit.current)}
+          onPress={onConfirm}
         />
         <Button iconName="close" name="Dismiss"
-          onPress={() => setVisible(false)}
+          onPress={onClose}
         />
       </View>
     </Modal>

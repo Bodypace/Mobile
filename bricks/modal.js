@@ -4,8 +4,9 @@ import { useTheme } from '../utils/themes'
 import Screen from './screen'
 
 
-export default function Modal({ children, visible, setVisible }) {
+export default function Modal({ children, visible, onClose }) {
   const { general: colors } = useTheme()
+
   const modalColor = {
     borderColor: colors.primary
   }
@@ -15,7 +16,7 @@ export default function Modal({ children, visible, setVisible }) {
       animationType='slide'
       transparent={true}
       visible={visible}
-      onRequestClose={() => setVisible(!visible)}
+      onRequestClose={onClose}
     >
       <Screen style={styles.container}>
         <View style={[styles.modal, modalColor]}>

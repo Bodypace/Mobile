@@ -7,7 +7,7 @@ import { gql, useApolloClient } from '@apollo/client';
 const MEAL_MUTATION = gql`
   mutation PatchMeal($id: ID!, $data: MealPatch!) {
     patchMeal(id: $id, data: $data) {
-      success,
+      success
       meal {
         id
         name
@@ -22,30 +22,29 @@ const MEAL_MUTATION = gql`
 export default function MealItem(meal) {
   const client = useApolloClient()
 
-  const editAction = (id, data) => {
-    client.mutate({
-      mutation: MEAL_MUTATION,
-      variables: { id, data }
-    })
-  }
-
   const edit = {
-    action: editAction,
+    name: "Edit",
     layout: [
       elements.title,
       elements.separator,
       [fields.meal.name, fields.meal.defaultHour],
       [fields.meal.since, fields.meal.until],
       elements.separator,
-    ]
+    ],
+    action: (id, data) =>
+      client.mutate({
+        mutation: MEAL_MUTATION,
+        variables: { id, data }
+      })
   }
 
   return (
     // spacing = 10
     <Item
       item={meal}
-      editLayout={edit.layout}
-      onEdit={edit.action}
+      overlays={[
+        edit
+      ]}
     />
   )
 }

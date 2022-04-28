@@ -4,14 +4,26 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 
-export default function Button ({iconName, name, onPress, icons}) {
-  const Icon = icons === "material"
+export default function Button({ name, onPress }) {
+  const icons = {
+    Eat: { iconName: "food-apple" },
+    Buy: { iconName: "cart-outline" },
+    Waste: { iconName: "trash-can-outline" },
+    Add: { iconName: "plus-thick" },
+    Fav: { iconName: "cards-heart" },
+    Edit: { iconName: "edit", iconSet: "material" },
+    Remove: { iconName: "trash-can" },
+  }
+
+  const { iconName, iconSet } = icons[name]
+
+  const Icon = iconSet === "material"
     ? MaterialIcons
     : MaterialCommunityIcons
 
   return (
     <Pressable style={styles.container} onPress={onPress}>
-      <Icon name={iconName} size={20} color="black"/>
+      <Icon name={iconName} size={20} color="black" />
       <Text>{name}</Text>
     </Pressable>
   )

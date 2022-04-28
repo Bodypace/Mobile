@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { Pressable, StyleSheet } from "react-native"
+import { View, Pressable, StyleSheet } from "react-native"
 import { Separator, SpacedTexts } from "../../bricks"
 import Nutrients from "../nutrients/nutrients"
-import { Buttons } from "./buttons"
+import { Button } from "./buttons"
 import Overlay from './overlay'
 import { styles as mealStyles, values as mealValues } from "./types/meal"
 import { styles as goalStyles, values as goalValues } from "./types/goal"
@@ -10,12 +10,8 @@ import { styles as itemStyles, values as itemValues } from "./types/product"
 import { selectedGoalId, selectedItemId, selectedMealId } from "mobile/utils/cache"
 
 
-export default function Item({
-  item, onEat, onBuy, onWaste, onAdd, onFav,
-  editLayout, onEdit,
-  onRemove
-}) {
-  const [modalVisible, setModalVisible] = useState(false)
+export default function Item({ item, overlays }) {
+  const [selectedOverlay, setSelectedOverlay] = useState(null)
   const { __typename, id, isSelected } = item
   const hideSeparator = __typename === "Goal" || __typename == "Meal"
 
@@ -49,15 +45,13 @@ export default function Item({
 
   return (
     <>
-      {editLayout &&
-        <Overlay
-          item={item}
-          layout={editLayout}
-          visible={modalVisible}
-          setVisible={setModalVisible}
-          action={onEdit}
-        />
-      }
+      {selectedOverlay && <Overlay
+        visible={selectedOverlay !== null}
+        onClose={() => setSelectedOverlay(null)}
+        item={item}
+        layout={selectedOverlay?.layout}
+        action={selectedOverlay?.action}
+      />}
       <Pressable
         style={[styles.container, isSelected ? styles.selectedContainer : {}]}
         onPress={() => setSelectedId(isSelected ? null : id)}>
@@ -81,15 +75,15 @@ export default function Item({
           valueStyle={styles.nutrientValue}
         />}
         {isSelected &&
-          <Buttons
-            onEat={onEat}
-            onBuy={onBuy}
-            onWaste={onWaste}
-            onAdd={onAdd}
-            onFav={onFav}
-            onEdit={editLayout ? () => setModalVisible(true) : undefined}
-            onRemove={onRemove}
-          />
+          <View style={commonStyles.buttons}>
+            {overlays.map(overlay =>
+              <Button
+                key={overlay.name}
+                name={overlay.name}
+                onPress={() => setSelectedOverlay(overlay)}
+              />
+            )}
+          </View>
         }
       </Pressable>
     </>
@@ -103,5 +97,9 @@ const commonStyles = StyleSheet.create({
   },
   row: {
     marginBottom: 5,
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
 })

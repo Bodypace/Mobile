@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { roboto } from '../../../../utils/fonts'
 import { useTheme } from '../../../../utils/themes'
 
-export default function Legend({ element }) {
+export default function Legend({ element, item, edit }) {
   const { general: colors } = useTheme()
 
   return (
@@ -11,7 +11,7 @@ export default function Legend({ element }) {
       <Text style={styles.in100g}>{element.name}</Text>
       {element.extra &&
         <Text style={[styles.amount, { color: colors[element.extra.color] }]}>
-          {element.extra.name}
+          {element.extra.name} ({edit.amount || item.amount} g)
         </Text>
       }
     </View>
