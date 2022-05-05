@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { View, ScrollView, StyleSheet } from 'react-native'
 import { Separator as PlainSeparator, Modal } from '../../../bricks'
 import { Field, Fields, Legend, Title } from './elements'
 import { Button } from './buttons'
@@ -24,18 +24,20 @@ export default function Overlay({ visible, onClose, item, layout, action }) {
 
   return (
     <Modal visible={visible} onClose={onClose}>
-      {layout.map((element, index) => {
-        const type = Array.isArray(element) ? "fields" : element.type
-        const Element = elements[type]
-        return Element === undefined ? <></> :
-          <Element
-            key={index}
-            element={element}
-            item={item}
-            edit={edit}
-            setEdit={setEdit}
-          />
-      })}
+      <ScrollView>
+        {layout.map((element, index) => {
+          const type = Array.isArray(element) ? "fields" : element.type
+          const Element = elements[type]
+          return Element === undefined ? <></> :
+            <Element
+              key={index}
+              element={element}
+              item={item}
+              edit={edit}
+              setEdit={setEdit}
+            />
+        })}
+      </ScrollView>
       <View style={styles.buttons}>
         <Button iconName="done" name="Confirm"
           onPress={onConfirm}
