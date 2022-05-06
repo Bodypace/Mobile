@@ -30,7 +30,7 @@ export default function Diet() {
 
   return (
     <Screen>
-      <DatePicker style={styles.datePicker}/>
+      <DatePicker/>
       <ScrollView style={styles.content}>
         <Water water={water} goal={goal}/>
         {mealTimes.map(({ hour, meal, eats }) =>
@@ -56,9 +56,6 @@ export default function Diet() {
 const styles = StyleSheet.create({
   content: {
     alignSelf: 'stretch'
-  },
-  datePicker: {
-    // marginBottom: 25,
   },
   summary: {
     backgroundColor: '#e1e1e1',
