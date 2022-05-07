@@ -28,6 +28,7 @@ export const DIET_QUERY = gql`
           id
           isSelected @client
           product {
+            id
             name
             vendor
             size
