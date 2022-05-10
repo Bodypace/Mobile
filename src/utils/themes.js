@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import lightTheme from '../assets/themes/light.json'
+import lightTheme from '../../assets/themes/light.json'
 
 const themesContext = createContext();
 

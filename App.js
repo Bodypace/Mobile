@@ -3,11 +3,11 @@ import { StatusBar } from 'expo-status-bar';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Login, Diet, Home, Settings } from './screens';
-import { ProvideAuth } from './utils/auth';
-import { ProvideThemes } from './utils/themes';
-import { WithFonts } from './utils/fonts';
-import { ProvideClient } from './utils/client';
+import { Login, Diet, Home, Settings } from './src/screens';
+import { ProvideAuth } from './src/utils/auth';
+import { ProvideThemes } from './src/utils/themes';
+import { WithFonts } from './src/utils/fonts';
+import { ProvideClient } from './src/utils/client';
 
 
 const Tab = createMaterialBottomTabNavigator();

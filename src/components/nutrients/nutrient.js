@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { useTheme } from 'mobile/utils/themes'
+import { useTheme } from '../../utils/themes'
 
 
 export default function Nutrient ({
