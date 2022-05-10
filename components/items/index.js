@@ -1,17 +1,12 @@
-import DietItem from './item-diet'
-import GoalItem from './item-goal'
-import MealItem from './item-meal'
-import SimpleItem from './item-simple'
-import Item from './item-diet'
+import AddMore from './add-more'
+import ItemButton from './item-button'
+import Item from './item'
 import ItemsHeader from './items-header'
 import Items from './items'
 
-
 export {
-  DietItem,
-  GoalItem,
-  MealItem,
-  SimpleItem,
+  AddMore,
+  ItemButton,
   Item,
   ItemsHeader,
   Items,

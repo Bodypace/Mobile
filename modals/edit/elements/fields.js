@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import Field from './field'
+import { Field } from './field'
 
 
-export default function Fields({ element, item, edit, setEdit }) {
+export function Fields({ element, item, edit, setEdit }) {
   return (
     element.length === 1 ?
       <View style={styles.container}>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, ToastAndroid } from 'react-native'
 import ItemsHeader from './items-header'
-import DietItem from './item-diet'
-import AddMore from './buttons/add-more'
+import Eat from '../../screens/diet/items/eat'
+import AddMore from './add-more'
 
 
 export default function Items({ hour, name, remark, eats }) {
@@ -20,9 +20,9 @@ export default function Items({ hour, name, remark, eats }) {
       />
       <View style={{ display: expanded ? undefined : 'none' }}>
         {eats.map(eat =>
-          <DietItem key={eat.id} item={eat} />
+          <Eat key={eat.id} item={eat} />
         )}
-        <AddMore color="darkgreen" />
+        <AddMore color="darkgreen" onPress={() => ToastAndroid.show("add more", ToastAndroid.SHORT)}/>
       </View>
     </View>
   )

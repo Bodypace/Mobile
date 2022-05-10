@@ -2,60 +2,41 @@ import React, { useState } from "react"
 import { View, Pressable, StyleSheet } from "react-native"
 import { Separator, SpacedTexts } from "../../bricks"
 import Nutrients from "../nutrients/nutrients"
-import { Button } from "./buttons"
-import Overlay from './overlay'
-import { styles as mealStyles, values as mealValues } from "./types/meal"
-import { styles as goalStyles, values as goalValues } from "./types/goal"
-import { styles as itemStyles, values as itemValues } from "./types/product"
-import { selectedGoalId, selectedItemId, selectedMealId } from "mobile/utils/cache"
+import ItemButton from "./item-button"
+import EditModal from '../../modals/edit'
+
+const Overlay = EditModal
 
 
-export default function Item({ item, overlays }) {
+export default function Item({
+  styles,
+  name, remark, leftValue, rightValue,
+  showSeparator,
+  nutrientsToShow,
+  item, overlays,
+  setSelectedId,
+}) {
   const [selectedOverlay, setSelectedOverlay] = useState(null)
-  const { __typename, id, isSelected } = item
-  const hideSeparator = __typename === "Goal" || __typename == "Meal"
-
-  const { name, remark, leftValue, rightValue } =
-    __typename === "Goal"
-      ? goalValues(item)
-      : __typename === "Meal"
-        ? mealValues(item)
-        : itemValues(item)
-
-  const setSelectedId =
-    __typename === "Goal"
-      ? selectedGoalId
-      : __typename === "Meal"
-        ? selectedMealId
-        : selectedItemId
-
-  const nutrientsToShow =
-    __typename === "Goal"
-      ? ['kcal', 'protein', 'carb', 'fat', 'salt']
-      : __typename === "Meal"
-        ? undefined
-        : ['kcal', 'protein', 'carb', 'sugar', 'fat', 'saturated', 'salt']
-
-  const styles =
-    __typename === "Goal"
-      ? goalStyles
-      : __typename === "Meal"
-        ? mealStyles
-        : itemStyles
+  const { id, isSelected } = item
 
   return (
     <>
-      {selectedOverlay && <Overlay
-        visible={selectedOverlay !== null}
-        onClose={() => setSelectedOverlay(null)}
-        item={item}
-        layout={selectedOverlay?.layout}
-        action={selectedOverlay?.action}
-      />}
+      {selectedOverlay &&
+        <Overlay
+          visible={selectedOverlay !== null}
+          onClose={() => setSelectedOverlay(null)}
+          item={item}
+          layout={selectedOverlay?.layout}
+          action={selectedOverlay?.action}
+        />
+      }
       <Pressable
         style={[styles.container, isSelected ? styles.selectedContainer : {}]}
-        onPress={() => setSelectedId(isSelected ? null : id)}>
-        {!hideSeparator && <Separator style={commonStyles.separator} />}
+        onPress={() => setSelectedId(isSelected ? null : id)}
+      >
+        {showSeparator &&
+          <Separator style={commonStyles.separator} />
+        }
         <SpacedTexts
           style={commonStyles.row}
           leftStyle={styles.name} left={name}
@@ -68,16 +49,17 @@ export default function Item({ item, overlays }) {
             rightStyle={styles.rightValue} right={rightValue}
           />
         }
-        {item && nutrientsToShow && <Nutrients
-          items={[item]}
-          fields={nutrientsToShow}
-          hideTitle
-          valueStyle={styles.nutrientValue}
-        />}
+        {item && nutrientsToShow &&
+          <Nutrients
+            items={[item]}
+            fields={nutrientsToShow}
+            hideTitle
+            valueStyle={styles.nutrientValue}
+          />}
         {isSelected &&
           <View style={commonStyles.buttons}>
             {overlays.map(overlay =>
-              <Button
+              <ItemButton
                 key={overlay.name}
                 name={overlay.name}
                 onPress={() => setSelectedOverlay(overlay)}

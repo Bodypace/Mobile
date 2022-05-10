@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { Text, ScrollView, StyleSheet } from 'react-native';
 import { Screen, Separator } from '../../bricks'
-import { SimpleItem, GoalItem, MealItem, Logo } from '../../components';
+import { Logo } from '../../components';
+import { Setting, Goal, Meal } from './items'
 import { useTheme } from '../../utils/themes'
 import { useAuth } from '../../utils/auth'
 import { useUserQuery } from './graph';
 
 
 export default function Settings() {
-  const { settings: colors } = useTheme()
   const auth = useAuth()
   const { loading, error, data } = useUserQuery()
 
@@ -26,60 +26,38 @@ export default function Settings() {
     return <Text>Profile Error: {error.message}</Text>;
   }
 
-  const { email, language, currency, goals, meals } = data.user
+  return <SettingsScreen data={data} />
+}
 
-  const sections = [
-    {
-      name: 'Account Details',
-      value: '(logout)',
-      onPress: () => auth.logout(),
-      ItemComponent: SimpleItem,
-      items: [
-        { name: 'email', value: email },
-        { name: 'password', value: '*********' },
-        { name: 'language', value: language },
-        { name: 'currency', value: currency },
-      ],
-    },
-    {
-      name: 'Legal Stuff',
-      ItemComponent: SimpleItem,
-      items: [
-        { name: 'privacy policy', value: '(see)' },
-        { name: 'terms of use', value: '(see)' },
-      ]
-    },
-    {
-      name: "Goals",
-      value: "(add)",
-      color: colors.goals,
-      ItemComponent: GoalItem,
-      items: goals,
-    },
-    {
-      name: "Meals",
-      value: "(add)",
-      color: colors.meals,
-      ItemComponent: MealItem,
-      items: meals,
-    }
-  ]
 
-  const separatorColor = {
-    backgroundColor: colors.separator
-  }
+const bgColor = color => ({ backgroundColor: color })
+
+
+function SettingsScreen({ data: {user: { email, language, currency, goals, meals } }}) {
+  const { settings: colors } = useTheme()
+  const auth = useAuth()
 
   return (
     <Screen>
       <Logo noLine />
-      <Separator style={[styles.separator, separatorColor]} />
+      <Separator style={[styles.separator, bgColor(colors.separator)]} />
       <ScrollView style={styles.content}>
-        {sections.map(({ name, value, onPress, color, ItemComponent, items }) =>
-          <React.Fragment key={name}>
-            <SimpleItem isHeader name={name} value={value} onPress={onPress} color={color} />
-            {items ? items.map(props => <ItemComponent key={props.name} {...props} />) : <></>}
-          </React.Fragment>
-        )}
+        <Setting name="Account Details" value="(logout)" onPress={() => auth.logout()} header />
+        <Setting name="email" value={email} />
+        <Setting name="password" value={"*********"} />
+        <Setting name="language" value={language} />
+        <Setting name="currency" value={currency} />
+        <Setting name="Legal Stuff" header />
+        <Setting name="privacy policy" value="(see)" />
+        <Setting name="terms of use" value="(see)" />
+        <Setting name="Goals" value="(add)" color={colors.goals} header />
+        {goals.map(goal =>
+          <Goal key={goal.name} {...goal} />)
+        }
+        <Setting name="Meals" value="(add)" color={colors.meals} header />
+        {meals.map(meal =>
+          <Meal key={meal.name} {...meal} />)
+        }
       </ScrollView>
     </Screen>
   );

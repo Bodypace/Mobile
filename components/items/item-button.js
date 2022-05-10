@@ -4,7 +4,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 
-export default function Button({ name, onPress }) {
+export default function ItemButton({ name, onPress }) {
   const icons = {
     Eat: { iconName: "food-apple" },
     Buy: { iconName: "cart-outline" },

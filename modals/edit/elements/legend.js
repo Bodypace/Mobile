@@ -1,9 +1,25 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { roboto } from '../../../../utils/fonts'
-import { useTheme } from '../../../../utils/themes'
+import { roboto } from '../../../utils/fonts'
+import { useTheme } from '../../../utils/themes'
 
-export default function Legend({ element, item, edit }) {
+
+export const define = {
+  per100g: {
+    type: "legend",
+    name: "in 100 g",
+    extra: {
+      color: "amount",
+      name: "ate",
+    }
+  },
+  perDay: {
+    type: "legend",
+    name: "in a day",
+  }
+}
+
+export function Legend({ element, item, edit }) {
   const { general: colors } = useTheme()
 
   return (

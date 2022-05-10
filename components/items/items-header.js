@@ -9,7 +9,9 @@ export default function ItemsHeader({ color, hour, name, remark, eats, expanded,
   const nameIcon = expanded ? "chevron-down" : "chevron-up"
   return (
     <View style={styles.container}>
-      {hour && <Text style={styles.hour}>{hour.slice(0, 5)}</Text>}
+      {hour &&
+        <Text style={styles.hour}>{hour.slice(0, 5)}</Text>
+      }
       <Spaced>
         <Pressable
           style={styles.nameContainer}
@@ -17,7 +19,9 @@ export default function ItemsHeader({ color, hour, name, remark, eats, expanded,
           disabled={expanded === undefined}
         >
           <Text style={[styles.name, { color }]}>{name}</Text>
-          {(expanded !== undefined) ? <Ionicons name={nameIcon} size={20} color={color} /> : <></>}
+          {(expanded === undefined) ? <></> :
+            <Ionicons name={nameIcon} size={20} color={color} />
+          }
         </Pressable>
         <Text style={styles.remark}>{remark}</Text>
       </Spaced>

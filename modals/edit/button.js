@@ -1,8 +1,7 @@
 import React from "react";
 import { Pressable, Text, StyleSheet } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import { roboto } from "../../../../utils/fonts"
-
+import { roboto } from "../../utils/fonts";
 
 export default function Button ({ iconName, name, onPress }) {
   return (

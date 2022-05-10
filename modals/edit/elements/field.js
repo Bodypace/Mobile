@@ -1,16 +1,39 @@
 import React, { useState, useRef } from 'react'
 import { View, Text, Pressable, StyleSheet, Vibration } from 'react-native'
-import { TextInput } from '../../../../bricks'
-import { roboto } from '../../../../utils/fonts'
-import { useTheme } from '../../../../utils/themes'
+import { TextInput } from '../../../bricks'
+import { roboto } from '../../../utils/fonts'
+import { useTheme } from '../../../utils/themes'
 
+
+export const define = {
+  text: (name, value, editable = true) => ({
+    type: "field", datatype: "text", name,
+    value: value ? value : i => i[name],
+    editable,
+  }),
+  number: (name, value, unit = undefined, editable = true) => ({
+    type: "field", datatype: "number", name,
+    value: value ? value : i => i[name],
+    unit,
+    editable,
+  }),
+  eat: (name, unit, editable = false) => ({
+    type: "field", datatype: "number", name,
+    values: [
+      i => i.product[name],
+      (i, e) => Math.round(i.product[name] * (e.amount ? e.amount : i.amount) / 10) / 10,
+    ],
+    unit,
+    editable,
+  })
+}
 
 const getValues = element => {
   const values = element.values || [element.value]
   return [values[0], values[1]]
 }
 
-export default function Field({ flex, element, item, edit, setEdit, vertical }) {
+export function Field({ flex, element, item, edit, setEdit, vertical }) {
   const { general: colors } = useTheme()
 
   const { type, name, datatype, unit, editable } = element
