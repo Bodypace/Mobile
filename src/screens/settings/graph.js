@@ -1,4 +1,5 @@
-import { useQuery, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
+
 
 export const USER_QUERY = gql`
   query CurrentUser {
@@ -30,8 +31,3 @@ export const USER_QUERY = gql`
     }
   }
 `;
-
-export const useUserQuery = () => useQuery(
-  USER_QUERY,
-  { fetchPolicy: "network-only" }
-);

@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 
 
 export const HOME_QUERY = gql`
@@ -89,11 +89,3 @@ export const HOME_QUERY = gql`
     }
   }
 `;
-
-export const useHomeQuery = day => useQuery(
-  HOME_QUERY,
-  {
-    variables: { day },
-    // fetchPolicy: "network-only"
-  }
-);

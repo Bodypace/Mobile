@@ -1,38 +1,34 @@
-import React, { useEffect } from 'react'
-import { Text, ScrollView, StyleSheet } from 'react-native'
+import React from 'react'
+import { ScrollView, StyleSheet } from 'react-native'
 import { Screen } from '../../bricks'
 import { DatePicker, Nutrients, Items, Water } from '../../components'
-import { useAuth } from '../../utils/auth'
 import { useDay } from '../../utils/cache'
-import { useDietQuery } from './graph';
+import { DIET_QUERY } from './graph';
+import { WithData } from '../../utils/with-data'
+import { useQuery } from "@apollo/client";
 
 
 export default function Diet() {
-  const auth = useAuth()
   const day = useDay()
-  const { loading, error, data } = useDietQuery(day)
-
-  useEffect(() => {
-    if (error && error.message.startsWith('401: Unauthorized')) {
-      auth.onAutoLogout()
+  const useDietQuery = () => useQuery(
+    DIET_QUERY,
+    {
+      variables: { day },
+      // fetchPolicy: "network-only"
     }
-  }, [error])
-
-  if (loading) {
-    return <Text>Loading ...</Text>;
-  }
-
-  if (error) {
-    return <Text>Error: {error.message}</Text>;
-  }
-
-  const { goal, water, mealTimes } = data.diet
+  );
 
   return (
+    <WithData Screen={DietScreen} useQuery={useDietQuery} />
+  )
+}
+
+function DietScreen({ data: { diet: { goal, water, mealTimes } } }) {
+  return (
     <Screen>
-      <DatePicker/>
+      <DatePicker />
       <ScrollView style={styles.content}>
-        <Water water={water} goal={goal}/>
+        <Water water={water} goal={goal} />
         {mealTimes.map(({ hour, meal, eats }) =>
           <Items
             key={meal.name}

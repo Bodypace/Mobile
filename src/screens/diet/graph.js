@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 
 
 export const DIET_QUERY = gql`
@@ -46,11 +46,3 @@ export const DIET_QUERY = gql`
     }
   }
 `;
-
-export const useDietQuery = day => useQuery(
-  DIET_QUERY,
-  {
-    variables: { day },
-    // fetchPolicy: "network-only"
-  }
-);
