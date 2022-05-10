@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingTop: 10, // spacing
     width: "90%",
-    height: "90%",
+    maxHeight: "90%",
     backgroundColor: "#fff",
     borderWidth: 1,
     borderRadius: 10,
