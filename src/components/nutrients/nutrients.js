@@ -7,7 +7,7 @@ import { sumBy } from 'lodash'
 
 export default function Nutrients({ style, valueStyle, fields, items, goal, hideTitle }) {
   const sumMeal = (items, field) => sumBy(items, item => readNutrient(item, field))
-  const sum = field => items[0].__typename === "MealTime"
+  const sum = field => items.length > 0 && items[0].__typename === "MealTime"
     ? sumBy(items, meal => sumMeal(meal.eats, field))
     : sumMeal(items, field)
 

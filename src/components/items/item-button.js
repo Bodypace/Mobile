@@ -13,6 +13,10 @@ export default function ItemButton({ name, onPress }) {
     Fav: { iconName: "cards-heart" },
     Edit: { iconName: "edit", iconSet: "material" },
     Remove: { iconName: "trash-can" },
+
+    Save: { iconName: "check", iconSet: "material"},
+    "New Product": { iconName: "plus-thick"},
+    Dismiss: { iconName: "close", iconSet: "material"},
   }
 
   const { iconName, iconSet } = icons[name]

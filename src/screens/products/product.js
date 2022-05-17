@@ -1,8 +1,8 @@
 import React from "react"
 import { StyleSheet } from "react-native"
 import { Item } from "../../components"
-import { define as title } from "../edit/elements/title"
-import { define as separator } from "../edit/elements/separator"
+import { define as title} from "../../modals/edit/elements/title"
+import { define as separator} from "../../modals/edit/elements/separator"
 import { readProductFields, readPrice } from "../../utils/readers"
 import { selectedProductId } from '../../utils/cache'
 import { gql, useApolloClient } from '@apollo/client';

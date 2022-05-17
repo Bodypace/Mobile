@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 
 
 export const PRODUCTS_QUERY = gql`
@@ -19,10 +19,3 @@ export const PRODUCTS_QUERY = gql`
     }
   }
 `;
-
-export const useProductsQuery = () => useQuery(
-  PRODUCTS_QUERY,
-  {
-    // fetchPolicy: "network-only"
-  }
-);
