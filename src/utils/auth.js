@@ -24,22 +24,18 @@ export function ProvideAuth({ setIsLoggedIn, children }) {
     onAutoLogin: () => setIsLoggedIn(true),
     onAutoLogout: () => setIsLoggedIn(false),
     login: async (email, password) => {
-      try {
-        await storage.remove('token')
-        const { data } = await client.query({
-          query: LOGIN_QUERY,
-          variables: {
-            email, password
-          },
-        })
+      await storage.remove('token')
+      const { data } = await client.query({
+        query: LOGIN_QUERY,
+        variables: {
+          email, password
+        },
+      })
 
-        await storage.store('email', email)
-        await storage.store('password', password)
-        await storage.store('token', data.login.token)
-        setIsLoggedIn(true)
-      } catch (e) {
-        console.log(`login error: ${e.message}`)
-      }
+      await storage.store('email', email)
+      await storage.store('password', password)
+      await storage.store('token', data.login.token)
+      setIsLoggedIn(true)
     },
     logout: async () => {
       return storage.remove('token').then(() => client.resetStore())

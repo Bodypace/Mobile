@@ -1,9 +1,15 @@
 {
   "general": {
     "primary": "darkgreen",
+    "disabled": "grey",
+    "disabledLight": "#CCC",
 
     "background": "white",
     "text": "black",
+    "textInverted": "white",
+
+    "good": "green",
+    "error": "red",
 
     "kcal": "black",
     "protein": "#1E90FF",
