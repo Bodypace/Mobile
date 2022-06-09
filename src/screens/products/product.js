@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet } from "react-native"
-import { Item } from "../../components"
+import { Item } from "../../components/molecules"
 import { define as title} from "../../modals/edit/elements/title"
 import { define as separator} from "../../modals/edit/elements/separator"
 import { readProductFields, readPrice } from "../../utils/readers"

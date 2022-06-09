@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, ToastAndroid } from 'react-native'
 import ItemsHeader from './items-header'
-import Eat from '../../screens/diet/items/eat'
+import Eat from '../../../screens/diet/items/eat'
 import AddMore from './add-more'
 
 

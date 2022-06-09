@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, ScrollView, StyleSheet } from 'react-native'
-import { Separator, Screen } from '../../bricks'
-import { Nutrients, ItemButton } from '../../components'
+import { Separator, Screen } from '../../components/atoms'
+import { Nutrients, ItemButton } from '../../components/molecules'
 import Product from './product'
 import { PRODUCTS_QUERY } from './graph';
 import { WithData } from '../../utils/with-data'

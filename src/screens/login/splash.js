@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import Logo from '../../components/logo'
+import Logo from '../../components/molecules/logo'
 
 
 export default function Splash() {

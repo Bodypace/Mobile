@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { Separator as BricksSeparator } from '../../../bricks'
+import { Separator as BricksSeparator } from '../../../components/atoms'
 
 
 export const define = {

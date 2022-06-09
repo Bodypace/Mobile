@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import Nutrient from './nutrient'
-import { readNutrient } from '../../utils/readers'
+import { readNutrient } from '../../../utils/readers'
 import { sumBy } from 'lodash'
 
 

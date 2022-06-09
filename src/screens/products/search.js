@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from 'react-native'
-import { TextInput } from '../../bricks'
+import { TextInput } from '../../components/atoms'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 

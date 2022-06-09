@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Keyboard, Text, View, StyleSheet, Pressable } from "react-native"
-import { Screen } from "../../bricks";
-import { Logo } from "../../components";
+import { Screen } from "../../components/atoms";
+import { Logo } from "../../components/molecules";
 import { useAuth } from '../../utils/auth'
 import Button from "./button";
 import Input from "./input";

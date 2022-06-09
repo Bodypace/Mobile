@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Pressable, Text, StyleSheet } from 'react-native'
-import Spaced from '../../bricks/spaced'
+import Spaced from '../../atoms/spaced'
 import Nutrients from '../nutrients/nutrients'
 import Ionicons from '@expo/vector-icons/Ionicons'
 

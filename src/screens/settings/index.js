@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView, StyleSheet } from 'react-native';
-import { Screen, Separator } from '../../bricks'
-import { Logo } from '../../components';
+import { Screen, Separator } from '../../components/atoms'
+import { Logo } from '../../components/molecules';
 import { Setting, Goal, Meal } from './items'
 import { useTheme } from '../../utils/themes'
 import { useAuth } from '../../utils/auth'

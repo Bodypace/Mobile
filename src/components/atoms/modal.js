@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Modal as NativeModal } from 'react-native'
-import { useTheme } from '../utils/themes'
+import { useTheme } from '../../utils/themes'
 import Screen from './screen'
 
 

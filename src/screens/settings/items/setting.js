@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { SpacedTexts } from "../../../bricks";
+import { SpacedTexts } from "../../../components/atoms";
 import { roboto } from "../../../utils/fonts";
 
 

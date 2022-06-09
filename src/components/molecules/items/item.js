@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { View, Pressable, StyleSheet } from "react-native"
-import { Separator, SpacedTexts } from "../../bricks"
+import { Separator, SpacedTexts } from "../../atoms"
 import Nutrients from "../nutrients/nutrients"
 import ItemButton from "./item-button"
-import EditModal from '../../modals/edit'
+import EditModal from '../../../modals/edit'
 
 const Overlay = EditModal
 

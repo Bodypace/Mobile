@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Pressable, Text, StyleSheet, Modal } from 'react-native'
-import Products from "../../screens/products";
+import { Modal, Pressable, StyleSheet, Text } from 'react-native';
+import Products from "../../../screens/products";
 
 export default function AddMore({ color, onPress }) {
   const [visible, setVisible] = useState(false)

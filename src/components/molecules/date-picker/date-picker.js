@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import { useReactiveVar } from '@apollo/client'
 import moment from 'moment'
 import DateBox from './date-box'
-import { dayVar } from '../../utils/cache'
+import { dayVar } from '../../../utils/cache'
 
 
 export default function DatePicker ({ style }) {

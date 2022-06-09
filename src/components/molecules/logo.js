@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
-import heart from '../../assets/heart_512.png';
-import { sanchez } from '../utils/fonts'
-import { useTheme } from '../utils/themes';
+import heart from '../../../assets/heart_512.png';
+import { sanchez } from '../../utils/fonts'
+import { useTheme } from '../../utils/themes';
 
 
 export default function Logo({ inverted, noLine }) {

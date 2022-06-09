@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
-import { Screen } from '../../bricks'
-import { DatePicker, Nutrients, Items } from '../../components'
+import { Screen } from '../../components/atoms'
+import { DatePicker, Nutrients, Items } from '../../components/molecules'
 import { useDay } from '../../utils/cache'
 import { HOME_QUERY } from './graph';
 import { WithData } from '../../utils/with-data'

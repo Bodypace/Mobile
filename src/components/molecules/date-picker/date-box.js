@@ -1,6 +1,6 @@
 import React from 'react'
 import { Pressable, Text, StyleSheet } from 'react-native'
-import { dayVar } from '../../utils/cache'
+import { dayVar } from '../../../utils/cache'
 
 
 export default function DateBox ({ style, titleStyle, dateStyle, title, date, onPress }) {

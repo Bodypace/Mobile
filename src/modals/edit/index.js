@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, ScrollView, StyleSheet } from 'react-native'
-import { Modal } from '../../bricks'
+import { Modal } from '../../components/atoms'
 import Elements from './elements'
 import Button from './button'
 
