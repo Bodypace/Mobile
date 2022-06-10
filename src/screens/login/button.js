@@ -1,23 +1,49 @@
 import React from "react";
-import { Pressable, Text, StyleSheet } from "react-native"
+import { Pressable, Text, StyleSheet } from "react-native";
 import { roboto } from "../../utils/fonts";
 import { useTheme } from "../../utils/themes";
+import { useFormikContext } from "formik";
+import LoginPhase from './login-phase';
 
 
-export default function Button ({ text, onPress, disabled }) {
-  const { general: colors } = useTheme()
+export default function Button({ phase, onPress }) {
+  const { general: colors } = useTheme();
+  const {
+    values: {
+      email,
+      password,
+      passwordRepeat,
+      privacyPolicy,
+      termsAndConditions,
+    },
+    setFieldValue,
+  } = useFormikContext();
+
+  const text = phase === LoginPhase.LOGIN ? "Login" : "Register";
+
+  const disabled =
+    email === "" ||
+    password === "" ||
+    (phase !== LoginPhase.LOGIN &&
+      (!passwordsMatch || !privacyPolicy || !termsAndConditions)) ||
+    (phase === LoginPhase.CONFIRM_CODE && confirmCode === "");
+
   const color = {
-    backgroundColor: disabled ? colors.disabled : colors.primary  
-  }
+    backgroundColor: disabled ? colors.disabled : colors.primary,
+  };
   const textColor = {
-    color: disabled ? colors.disabledLight : colors.textInverted
-  }
+    color: disabled ? colors.disabledLight : colors.textInverted,
+  };
 
   return (
-    <Pressable style={[styles.container, color]} onPress={onPress} disabled={disabled}>
+    <Pressable
+      style={[styles.container, color]}
+      onPress={onPress}
+      disabled={disabled}
+    >
       <Text style={[styles.text, textColor]}>{text}</Text>
     </Pressable>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -31,7 +57,7 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -41,4 +67,4 @@ const styles = StyleSheet.create({
     fontFamily: roboto.bold,
     fontSize: 22,
   },
-})
+});
