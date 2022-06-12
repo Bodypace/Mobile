@@ -1,12 +1,12 @@
 import React from "react";
 import { TextInput, StyleSheet } from "react-native";
-import { roboto } from "../../utils/fonts";
-import { useTheme } from "../../utils/themes";
+import { roboto } from "../../../utils/fonts";
+import { useTheme } from "../../../utils/themes";
 import { useFormikContext } from "formik";
 
-export default function Input({ name, secure = false, error = false }) {
+export default function FormInput({ name, secure = false, error = false }) {
   const { general: colors } = useTheme();
-  const {
+  let {
     values: { [name]: value },
     handleChange,
     handleBlur,
@@ -26,6 +26,8 @@ export default function Input({ name, secure = false, error = false }) {
     />
   );
 }
+
+export const FormEmail = () => <FormInput name="email" />;
 
 const styles = StyleSheet.create({
   input: {

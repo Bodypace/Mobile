@@ -1,15 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, StyleSheet } from 'react-native'
+import { useDroppable, DroppablePhase } from './droppable';
 
 
-export default function ConfirmCode({ children, blockHeight, registerHeight, visible }) {
+export default function DroppableBottom({ children }) {
+  const { containerHeight, topHeight, phase} = useDroppable()
+  const visible = phase === DroppablePhase.BOTTOM
   const marginTop = useRef(new Animated.Value(2000)).current;
-  const spacer = 15
+  const spacer = 45
 
   useEffect(() => {
     const toValue = visible
-      ? registerHeight.current + spacer
-      : blockHeight.current || 1000
+      ? topHeight + spacer
+      : containerHeight || 1000
 
     Animated.timing(marginTop, {
       toValue,

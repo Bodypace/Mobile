@@ -1,36 +1,40 @@
 import React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
-import { roboto } from "../../utils/fonts";
-import { useTheme } from "../../utils/themes";
+import { roboto } from "../../../utils/fonts";
+import { useTheme } from "../../../utils/themes";
 import { useFormikContext } from "formik";
-import LoginPhase from './login-phase';
+import { DroppablePhase } from "../droppable/droppable";
 
-
-export default function Button({ phase, onPress }) {
+export default function FormButton() {
   const { general: colors } = useTheme();
   const {
     values: {
+      phase,
       email,
       password,
       passwordRepeat,
       privacyPolicy,
       termsAndConditions,
+      confirmationCode,
     },
-    setFieldValue,
+    handleSubmit
   } = useFormikContext();
 
-  const text = phase === LoginPhase.LOGIN ? "Login" : "Register";
+  const text = phase === DroppablePhase.COVER ? "Login" : "Register";
 
-  const disabled =
+  const disabled = 
     email === "" ||
     password === "" ||
-    (phase !== LoginPhase.LOGIN &&
-      (!passwordsMatch || !privacyPolicy || !termsAndConditions)) ||
-    (phase === LoginPhase.CONFIRM_CODE && confirmCode === "");
+    (phase !== DroppablePhase.COVER &&
+      (password !== passwordRepeat ||
+        !privacyPolicy ||
+        !termsAndConditions)) ||
+    (phase === DroppablePhase.BOTTOM && confirmationCode === "");
 
   const color = {
     backgroundColor: disabled ? colors.disabled : colors.primary,
   };
+
   const textColor = {
     color: disabled ? colors.disabledLight : colors.textInverted,
   };
@@ -38,7 +42,7 @@ export default function Button({ phase, onPress }) {
   return (
     <Pressable
       style={[styles.container, color]}
-      onPress={onPress}
+      onPress={handleSubmit}
       disabled={disabled}
     >
       <Text style={[styles.text, textColor]}>{text}</Text>
@@ -49,7 +53,7 @@ export default function Button({ phase, onPress }) {
 const styles = StyleSheet.create({
   container: {
     alignSelf: "stretch",
-    marginHorizontal: 10,
+    marginHorizontal: 30,
     marginBottom: 5,
     padding: 10,
     borderRadius: 10,

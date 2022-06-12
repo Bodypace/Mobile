@@ -1,34 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Keyboard, Text, View, StyleSheet, Pressable } from "react-native";
+import React from "react";
 import { Screen } from "../../components/atoms";
 import { Logo } from "../../components/molecules";
 import { useAuth } from "../../utils/auth";
-import Button from "./button";
-import { useTheme } from "../../utils/themes";
-import TrackLayout from "./track-layout";
-import AnimatedText from "./animations/animated-text";
-import ConfirmButton from "./animations/confirm-button";
-import ConfirmCode from "./animations/confirm-code";
 import * as Yup from "yup";
-import { values } from "lodash";
 import Form from "./form";
-import FormSwitch from "./form-switch";
-import LoginPhase from "./login-phase";
-import Droppable from "./droppable";
-import Texts from './texts';
+import Droppable from './droppable';
+import { DroppablePhase } from "./droppable/droppable";
+import Texts from "./texts";
+
 
 export default function Login() {
   const auth = useAuth();
-  const { general: colors } = useTheme();
-
-  const [phase, setPhase] = useState(LoginPhase.LOGIN);
-
-  const blockHeight = useRef(0);
-  const registerHeight = useRef(0);
-
-  const [loginErrorVisible, setLoginErrorVisible] = useState(false);
-  const [confirmButtonElevated, setConfirmButtonElevated] = useState(true);
-  const [confirmCodeVisible, setConfirmCodeVisible] = useState(false);
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -46,22 +28,22 @@ export default function Login() {
     termsAndConditions: false,
   };
 
-  const onSubmit = async ({ email, password }) => {
-    if (phase === LoginPhase.LOGIN) {
+  const onSubmit = async ({ phase, email, password }, { setFieldValue }) => {
+    console.log('onSubmit() login screen form')
+    if (phase === DroppablePhase.COVER) {
       try {
         await auth.login(email, password);
       } catch (e) {
         console.log(`login screen error: ${e.message}`);
-        setLoginErrorVisible(true);
-        setTimeout(() => setLoginErrorVisible(false), 3000);
+        setFieldValue("submitError", "Incorrect email or password");
+        setTimeout(() => setFieldValue("submitError", ""), 3000);
       }
-    } else if (phase === LoginPhase.REGISTER) {
-      setPhase(LoginPhase.CONFIRM_CODE);
-    } else {
-      // setPassword(LoginPhase.LOGIN);
+    } else if (phase === DroppablePhase.TOP) {
+      setFieldValue("phase", DroppablePhase.BOTTOM);
     }
   };
 
+    // "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'"
   return (
     <Screen>
       <Logo />
@@ -69,54 +51,33 @@ export default function Login() {
         initialValues={initialValues}
         validationSchema={schema}
         onSubmit={onSubmit}
+        includeDroppableData
       >
         <Form.Email />
         <Form.Error name="email" />
+
         <Form.Password />
         <Form.Error name="password" />
         <Form.Error name="submitError" />
-        <Droppable>
-          <Droppable.Beneath>
+        <Droppable useFormContext>
+          <Droppable.Top>
             <Form.Password repeat />
             <Form.PasswordRemark />
             <Form.Accept name="privacyPolicy" />
             <Form.Accept name="termsAndConditions" />
-          </Droppable.Beneath>
+          </Droppable.Top>
+
           <Droppable.Bottom>
-            <Texts.ConfirmationCodeSent/>
+            <Texts.ConfirmationCodeSent />
             <Form.Input name="confirmationCode" />
           </Droppable.Bottom>
-          <Droppable.Falling>
-            <Button phase={phase} />
-            <FormSwitch phase={phase} setPhase={setPhase} />
-          </Droppable.Falling>
+
+          <Droppable.Cover>
+            <Form.Button />
+            <Form.Switch />
+          </Droppable.Cover>
         </Droppable>
       </Form>
     </Screen>
   );
 }
-        // <AnimatedText
-        //   style={{ color: colors.error, marginLeft: 10 }}
-        //   animated="height"
-        //   hide={0}
-        //   show={20}
-        //   visible={loginErrorVisible}
-        // >
-        //   Incorrect email or password
-        // </AnimatedText>
-
-const styles = StyleSheet.create({
-  block: {
-    flex: 1,
-    alignSelf: "stretch",
-  },
-  passwordRemark: {
-    marginLeft: 25,
-    marginBottom: 10,
-  },
-  goBack: {
-    color: "darkgreen",
-    borderBottomWidth: 1,
-    borderColor: "darkgreen",
-  },
-});

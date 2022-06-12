@@ -1,18 +1,20 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, StyleSheet } from 'react-native'
-import TrackLayout from "../track-layout";
+import { View, Animated, StyleSheet } from "react-native";
+import { useDroppable, DroppablePhase } from "./droppable";
 
-
-export default function ConfirmButton({ children, blockHeight, elevated = false }) {
-  const height = useRef(0)
+export default function DroppableCover({ children }) {
+  const { containerHeight, phase } = useDroppable();
+  const elevated = phase === DroppablePhase.COVER
+  const height = useRef(0);
 
   const marginTop = useRef(new Animated.Value(0)).current;
   const paddingTop = useRef(new Animated.Value(10)).current;
-  const marginBottom = 5
+  const marginBottom = 5;
 
   useEffect(() => {
     const toValue = elevated
-      ? 0 : blockHeight.current - height.current - marginBottom
+      ? 0
+      : containerHeight - height.current - marginBottom;
 
     Animated.sequence([
       Animated.timing(marginTop, {
@@ -24,17 +26,17 @@ export default function ConfirmButton({ children, blockHeight, elevated = false 
         toValue: elevated ? 10 : 0,
         duration: 100,
         useNativeDriver: false,
-      })
+      }),
     ]).start();
-  }, [elevated])
+  }, [elevated]);
 
   return (
-    <Animated.View style={[styles.confirmButton, { marginTop, paddingTop }]} >
-      <TrackLayout value="height" store={height}>
+    <Animated.View style={[styles.confirmButton, { marginTop, paddingTop }]}>
+      <View onLayout={(e) => (height.current = e.nativeEvent.layout.height)}>
         {children}
-      </TrackLayout>
-    </Animated.View >
-  )
+      </View>
+    </Animated.View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -45,4 +47,4 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "white",
   },
-})
+});

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import { Separator, Screen } from '../../components/atoms'
-import { Nutrients, ItemButton } from '../../components/molecules'
+import Nutrients from '../../components/molecules/nutrients/nutrients'
+import ItemButton from '../../components/molecules/items/item-button'
 import Product from './product'
 import { PRODUCTS_QUERY } from './graph';
 import { WithData } from '../../utils/with-data'
