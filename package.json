@@ -2,11 +2,10 @@
   "name": "my-app",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "start": "expo start",
+    "clean": "expo start --clear",
+    "dev": "expo start --dev-client",
+    "dev:clean": "expo start --dev-client --clear"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
