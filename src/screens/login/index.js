@@ -1,78 +1,107 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import { Screen } from "../../components/atoms";
 import { Logo } from "../../components/molecules";
 import { useAuth } from "../../utils/auth";
 import * as Yup from "yup";
 import Form from "./form";
-import Droppable from './droppable';
+import Droppable from "./droppable";
 import { DroppablePhase } from "./droppable/droppable";
-import Texts from "./texts";
-
+import Texts from "./texts/texts";
+import GreyBackground from "./grey-background";
 
 export default function Login() {
   const auth = useAuth();
 
   const schema = Yup.object().shape({
-    email: Yup.string()
-      .min(2, "Too short!")
-      .max(70, "Too long!")
-      .required("Required"),
+    phase: Yup.number().optional(),
+    email: Yup.string().email("Enter correct email").required("Required"),
+    password: Yup.string().min(8, "At least 8 characters").required("Required"),
+    passwordRepeat: Yup.string().when("phase", {
+      is: (v) => v !== DroppablePhase.COVER,
+      then: (schema) =>
+        schema
+          .oneOf([Yup.ref("password"), null], "Passwords don't match")
+          .required("Required"),
+      otherwise: (schema) => schema.optional(),
+    }),
+    privacyPolicy: Yup.bool().when("phase", {
+      is: (v) => v !== DroppablePhase.COVER,
+      then: (schema) => schema.oneOf([true], "Must accept"),
+      otherwise: (schema) => schema.optional(),
+    }),
+    termsAndConditions: Yup.bool().when("phase", {
+      is: (v) => v !== DroppablePhase.COVER,
+      then: (schema) => schema.oneOf([true], "Must accept"),
+      otherwise: (schema) => schema.optional(),
+    }),
+    confirmationCode: Yup.string().when("phase", {
+      is: DroppablePhase.BOTTOM,
+      then: (schema) =>
+        schema.min(6, "6 digits").max(6, "6 digits").required("Required"),
+      otherwise: (schema) => schema.optional(),
+    }),
   });
 
   const initialValues = {
+    phase: DroppablePhase.COVER,
     email: "",
     password: "",
     passwordRepeat: "",
-    confirmationCode: "",
     privacyPolicy: false,
     termsAndConditions: false,
+    confirmationCode: "",
+    submitError: "",
   };
 
-  const onSubmit = async ({ phase, email, password }, { setFieldValue }) => {
-    console.log('onSubmit() login screen form')
-    if (phase === DroppablePhase.COVER) {
+  const onSubmit = async (
+    { phase, email, password },
+    { setFieldValue, setFieldError }
+  ) => {
+    console.log("on submit: ");
+    if (phase === DroppablePhase.COVER || phase === DroppablePhase.BOTTOM) {
       try {
         await auth.login(email, password);
       } catch (e) {
-        console.log(`login screen error: ${e.message}`);
-        setFieldValue("submitError", "Incorrect email or password");
-        setTimeout(() => setFieldValue("submitError", ""), 3000);
+        console.log("submitError: ", e.message);
+        setFieldError("submitError", "Incorrect email or password");
+        setTimeout(() => setFieldError("submitError", ""), 3000);
       }
     } else if (phase === DroppablePhase.TOP) {
       setFieldValue("phase", DroppablePhase.BOTTOM);
     }
   };
 
-    // "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'"
   return (
-    <Screen>
-      <Logo />
+    <Screen style={styles.screen}>
+      <Logo style={styles.logo} />
       <Form
-        initialValues={initialValues}
         validationSchema={schema}
+        initialValues={initialValues}
         onSubmit={onSubmit}
-        includeDroppableData
       >
-        <Form.Email />
-        <Form.Error name="email" />
+        <GreyBackground top>
+          <Form.Email />
+          <Form.Password />
+        </GreyBackground>
 
-        <Form.Password />
-        <Form.Error name="password" />
-        <Form.Error name="submitError" />
         <Droppable useFormContext>
           <Droppable.Top>
-            <Form.Password repeat />
-            <Form.PasswordRemark />
-            <Form.Accept name="privacyPolicy" />
-            <Form.Accept name="termsAndConditions" />
+            <GreyBackground bottom>
+              <Form.Password repeat />
+              <Form.Accept name="privacyPolicy" />
+              <Form.Accept name="termsAndConditions" />
+            </GreyBackground>
           </Droppable.Top>
 
           <Droppable.Bottom>
             <Texts.ConfirmationCodeSent />
             <Form.Input name="confirmationCode" />
+            <Texts.ResendOrGoBack />
           </Droppable.Bottom>
 
           <Droppable.Cover>
+            <Form.Error name="submitError" />
             <Form.Button />
             <Form.Switch />
           </Droppable.Cover>
@@ -81,3 +110,12 @@ export default function Login() {
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    marginHorizontal: 15,
+  },
+  logo: {
+    marginBottom: 20,
+  },
+});

@@ -21,7 +21,7 @@ export default function FormAccept({ name }) {
       onPress={() => console.log("document details")}
     >
       <Pressable
-        style={{ borderWidth: 1, width: 20, height: 20, marginRight: 5 }}
+        style={styles.checkbox}
         onPress={() => setFieldValue(name, !checked)}
       >
         {checked && (
@@ -36,10 +36,15 @@ export default function FormAccept({ name }) {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
     flexDirection: "row",
-    alignSelf: "flex-start",
-    marginLeft: 35,
+    marginHorizontal: 15,
+    marginVertical: 10,
+  },
+  checkbox: {
+    borderWidth: 1,
+    width: 20,
+    height: 20,
+    marginRight: 5,
   },
   link: {
     marginLeft: 4,

@@ -6,18 +6,10 @@ import FormInput, { FormEmail } from "./form-input";
 import FormPassword, { FormPasswordRemark } from "./form-password";
 import FormSwitch from "./form-switch";
 import { Formik } from "formik";
-import { DroppablePhase } from "../droppable/droppable";
 
-const Form = ({ children, initialValues, includeDroppableData, ...props }) => {
-  if (includeDroppableData) {
-    initialValues = {
-      ...initialValues,
-      phase: DroppablePhase.COVER,
-    };
-  }
-
+const Form = ({ children, ...props }) => {
   return (
-    <Formik {...props} initialValues={initialValues}>
+    <Formik {...props}>
       <>{children}</>
     </Formik>
   );

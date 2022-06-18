@@ -9,12 +9,12 @@ export default function DroppableCover({ children }) {
 
   const marginTop = useRef(new Animated.Value(0)).current;
   const paddingTop = useRef(new Animated.Value(10)).current;
-  const marginBottom = 5;
+  const marginBottom = 0;
 
   useEffect(() => {
     const toValue = elevated
       ? 0
-      : containerHeight - height.current - marginBottom;
+      : containerHeight.current - height.current - marginBottom;
 
     Animated.sequence([
       Animated.timing(marginTop, {
@@ -23,7 +23,7 @@ export default function DroppableCover({ children }) {
         useNativeDriver: false,
       }),
       Animated.timing(paddingTop, {
-        toValue: elevated ? 10 : 0,
+        toValue: elevated ? 0 : 0, // 10 : 0
         duration: 100,
         useNativeDriver: false,
       }),

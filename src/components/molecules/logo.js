@@ -5,14 +5,14 @@ import { sanchez } from '../../utils/fonts'
 import { useTheme } from '../../utils/themes';
 
 
-export default function Logo({ inverted, noLine }) {
+export default function Logo({ inverted, noLine, style }) {
   const { components: { logo: colors } } = useTheme()
   const color = inverted ? colors.inverted : colors.main
   const textColor = { color }
   const lineColor = { backgroundColor: color }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Image style={styles.image} source={heart} />
       {noLine ? <></> : <View style={[styles.line, lineColor]} />}
       <Text style={[styles.text, textColor]}>Bodypace</Text>

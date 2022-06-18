@@ -20,8 +20,8 @@ export const Droppable = ({
   useFormContext = false,
   children,
 }) => {
-  const [containerHeight, setContainerHeight] = useState(0);
-  const [topHeight, setTopHeight] = useState(0);
+  const containerHeight = React.useRef(0);
+  const topHeight = React.useRef(0);
   const { values, setFieldValue } = useFormikContext();
 
   if (useFormContext) {
@@ -34,17 +34,14 @@ export const Droppable = ({
     setPhase,
 
     containerHeight,
-    setContainerHeight: (v) => containerHeight === 0 && setContainerHeight(v),
-
     topHeight,
-    setTopHeight: (v) => topHeight === 0 && setTopHeight(v),
   };
 
   return (
     <droppableContext.Provider value={context}>
       <View
         style={styles.block}
-        onLayout={(e) => setContainerHeight(e.nativeEvent.layout.height)}
+        onLayout={(e) => containerHeight.current = e.nativeEvent.layout.height}
       >
         {children}
       </View>

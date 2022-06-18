@@ -43,7 +43,7 @@ export default function FormButton() {
     <Pressable
       style={[styles.container, color]}
       onPress={handleSubmit}
-      disabled={disabled}
+      // disabled={disabled}
     >
       <Text style={[styles.text, textColor]}>{text}</Text>
     </Pressable>
@@ -53,10 +53,9 @@ export default function FormButton() {
 const styles = StyleSheet.create({
   container: {
     alignSelf: "stretch",
-    marginHorizontal: 30,
-    marginBottom: 5,
     padding: 10,
     borderRadius: 10,
+    marginBottom: 10,
 
     shadowColor: "#000",
     shadowOffset: {

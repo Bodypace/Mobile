@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated } from "react-native";
+import { Animated, StyleSheet } from "react-native";
 import { useTheme } from "../../../utils/themes";
 import { useFormikContext } from "formik";
 
@@ -22,9 +22,15 @@ export default function FormError({ name }) {
 
   return (
     <Animated.Text
-      style={[{ color: colors.error, marginLeft: 10 }, { height: value }]}
+      style={[styles.text, { color: colors.error }, { height: value }]}
     >
       {error}
     </Animated.Text>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+
+  }
+})

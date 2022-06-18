@@ -3,10 +3,10 @@ import { View } from "react-native";
 import { useDroppable } from './droppable';
 
 export default function DroppableTop({ children }) {
-  const { setTopHeight } = useDroppable();
+  const { topHeight } = useDroppable();
 
   return (
-    <View onLayout={(e) => setTopHeight(e.nativeEvent.layout.height)}>
+    <View onLayout={(e) => topHeight.current = e.nativeEvent.layout.height}>
       {children}
     </View>
   );

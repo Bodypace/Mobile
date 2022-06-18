@@ -13,16 +13,24 @@ export default function FormSwitch() {
   const {
     values: { phase },
     setFieldValue,
+    setFieldTouched,
+    handleBlur,
   } = useFormikContext();
 
   useEffect(() => {
     if (phase === DroppablePhase.TOP) {
-      setFieldValue("passwordRepeat", "");
-      setFieldValue("confirmationCode", "");
-      setFieldValue("privacyPolicy", false);
-      setFieldValue("termsAndConditions", false);
+      setFieldValue("passwordRepeat", "", false);
+      setFieldValue("privacyPolicy", false, false);
+      setFieldValue("termsAndConditions", false, false);
+      setFieldValue("confirmationCode", "", false);
+
+      setFieldTouched("passwordRepeat", false, false);
+      // setFieldTouched("privacyPolicy", false, false);
+      // setFieldTouched("termsAndConditions", false, false);
+      // setFieldTouched("confirmationCode", false, false);
     } else if (phase === DroppablePhase.BOTTOM) {
-      setFieldValue("confirmationCode", "");
+      setFieldValue("confirmationCode", "", false);
+      // setFieldTouched("confirmationCode", false, false);
     }
   }, [phase]);
 
@@ -36,7 +44,8 @@ export default function FormSwitch() {
 
   const onPress = () => {
     Keyboard.dismiss();
-    setFieldValue('phase',
+    setFieldValue(
+      "phase",
       phase === DroppablePhase.COVER ? DroppablePhase.TOP : DroppablePhase.COVER
     );
   };
@@ -51,10 +60,9 @@ export default function FormSwitch() {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
     flexDirection: "row",
-    alignSelf: "flex-start",
-    marginLeft: 50,
+    alignSelf: "center",
+    marginBottom: 10,
   },
   link: {
     marginLeft: 4,

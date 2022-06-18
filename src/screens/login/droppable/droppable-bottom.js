@@ -7,12 +7,12 @@ export default function DroppableBottom({ children }) {
   const { containerHeight, topHeight, phase} = useDroppable()
   const visible = phase === DroppablePhase.BOTTOM
   const marginTop = useRef(new Animated.Value(2000)).current;
-  const spacer = 45
+  const spacer = 0
 
   useEffect(() => {
     const toValue = visible
-      ? topHeight + spacer
-      : containerHeight || 1000
+      ? topHeight.current + spacer
+      : containerHeight.current || 1000
 
     Animated.timing(marginTop, {
       toValue,
