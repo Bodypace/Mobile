@@ -23,6 +23,7 @@ export default function Texts_ResendOrGoBack() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row-reverse",
+    marginLeft: 15,
   },
   text: {
     color: "grey",

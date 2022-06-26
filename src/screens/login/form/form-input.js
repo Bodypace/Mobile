@@ -3,8 +3,14 @@ import { View, Text, Animated, TextInput, StyleSheet } from "react-native";
 import { roboto } from "../../../utils/fonts";
 import { useTheme } from "../../../utils/themes";
 import { useFormikContext } from "formik";
+import { DroppablePhase } from "../droppable/droppable";
 
-export default function FormInput({ name, secure = false, error = false }) {
+export default function FormInput({
+  name,
+  secure = false,
+  error = false,
+  disable = false,
+}) {
   const { general: colors } = useTheme();
   const opacity = React.useRef(new Animated.Value(0)).current;
 
@@ -18,7 +24,7 @@ export default function FormInput({ name, secure = false, error = false }) {
 
   const errorVisible = touched && err;
 
-  error = error || errorVisible
+  error = error || errorVisible;
 
   React.useEffect(() => {
     Animated.timing(opacity, {
@@ -40,13 +46,20 @@ export default function FormInput({ name, secure = false, error = false }) {
         value={value}
         onChangeText={handleChange(name)}
         onBlur={handleBlur(name)}
+        editable={!disable}
       />
       <Animated.Text style={[styles.error, { opacity }]}>{err}</Animated.Text>
     </View>
   );
 }
 
-export const FormEmail = () => <FormInput name="email" />;
+export function FormEmail() {
+  let {
+    values: { phase },
+  } = useFormikContext();
+
+  return <FormInput name="email" disable={phase === DroppablePhase.BOTTOM} />;
+}
 
 const styles = StyleSheet.create({
   container: {

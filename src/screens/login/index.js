@@ -15,7 +15,7 @@ export default function Login() {
 
   const schema = Yup.object().shape({
     phase: Yup.number().optional(),
-    email: Yup.string().email("Enter correct email").required("Required"),
+    email: Yup.string().email("Incorrect email").required("Required"),
     password: Yup.string().min(8, "At least 8 characters").required("Required"),
     passwordRepeat: Yup.string().when("phase", {
       is: (v) => v !== DroppablePhase.COVER,

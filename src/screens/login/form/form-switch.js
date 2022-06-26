@@ -14,8 +14,48 @@ export default function FormSwitch() {
     values: { phase },
     setFieldValue,
     setFieldTouched,
-    handleBlur,
   } = useFormikContext();
+
+  const [keyboardVisible, setKeyboardVisible] = React.useState(false);
+  const [changePhase, setChangePhase] = React.useState(false);
+
+  useEffect(() => {
+    const listeners = {
+      onShow: Keyboard.addListener("keyboardDidShow", () => {
+        console.log("Keyboard::keyboardDidShow()");
+        setKeyboardVisible(true);
+      }),
+
+      onHide: Keyboard.addListener("keyboardDidHide", () => {
+        console.log("Keyboard::keyboardDidHide()");
+        setKeyboardVisible(false);
+      }),
+    };
+
+    return () => {
+      listeners.onShow.remove();
+      listeners.onHide.remove();
+    };
+  }, []);
+
+  const switchPhase = () => {
+    console.log(" > setting phase");
+    setFieldValue(
+      "phase",
+      phase === DroppablePhase.COVER ? DroppablePhase.TOP : DroppablePhase.COVER
+    );
+  };
+
+  useEffect(() => {
+    if (changePhase) {
+      if (keyboardVisible) {
+        Keyboard.dismiss();
+      }
+      else {
+        setTimeout(switchPhase, 0);
+      }
+    }
+  }, [changePhase, keyboardVisible]);
 
   useEffect(() => {
     if (phase === DroppablePhase.TOP) {
@@ -25,13 +65,11 @@ export default function FormSwitch() {
       setFieldValue("confirmationCode", "", false);
 
       setFieldTouched("passwordRepeat", false, false);
-      // setFieldTouched("privacyPolicy", false, false);
-      // setFieldTouched("termsAndConditions", false, false);
-      // setFieldTouched("confirmationCode", false, false);
     } else if (phase === DroppablePhase.BOTTOM) {
       setFieldValue("confirmationCode", "", false);
-      // setFieldTouched("confirmationCode", false, false);
     }
+
+    setChangePhase(false);
   }, [phase]);
 
   const message =
@@ -42,16 +80,8 @@ export default function FormSwitch() {
   const link =
     phase === DroppablePhase.COVER ? "Register with email" : "Login instead";
 
-  const onPress = () => {
-    Keyboard.dismiss();
-    setFieldValue(
-      "phase",
-      phase === DroppablePhase.COVER ? DroppablePhase.TOP : DroppablePhase.COVER
-    );
-  };
-
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable style={styles.container} onPress={() => setChangePhase(true)}>
       <Text style={styles.register}>{message}</Text>
       <Text style={[styles.link, linkColors]}>{link}</Text>
     </Pressable>

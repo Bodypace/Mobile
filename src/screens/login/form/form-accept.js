@@ -3,6 +3,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Pressable, Text, StyleSheet } from "react-native";
 import { useTheme } from "../../../utils/themes";
 import { useFormikContext } from "formik";
+import { DroppablePhase } from "../droppable/droppable";
 
 export default function FormAccept({ name }) {
   const { general: colors } = useTheme();
@@ -11,9 +12,10 @@ export default function FormAccept({ name }) {
     borderColor: colors.primary,
   };
   const {
-    values: { [name]: checked },
+    values: { phase, [name]: checked },
     setFieldValue,
   } = useFormikContext();
+  const disabled = phase === DroppablePhase.BOTTOM;
 
   return (
     <Pressable
@@ -23,9 +25,14 @@ export default function FormAccept({ name }) {
       <Pressable
         style={styles.checkbox}
         onPress={() => setFieldValue(name, !checked)}
+        disabled={disabled}
       >
         {checked && (
-          <MaterialIcons name="done" size={20} color={colors.primary} />
+          <MaterialIcons
+            name="done"
+            size={20}
+            color={disabled ? colors.disabled : colors.primary}
+          />
         )}
       </Pressable>
       <Text style={styles.register}>I accept</Text>

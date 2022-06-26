@@ -16,7 +16,6 @@ export default function GreyBackground({ children, top, bottom }) {
   });
 
   React.useEffect(() => {
-    console.log("interpolate!, phase: ", phase);
     Animated.timing(animation, {
       toValue: phase === DroppablePhase.BOTTOM ? 1 : 0,
       duration: 1000,

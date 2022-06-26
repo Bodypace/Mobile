@@ -8,6 +8,7 @@ import {
 import storage from './storage'
 import { cache } from './cache';
 import Constants from "expo-constants";
+import { add } from 'lodash';
 
 
 export function ProvideClient({ children }) {
