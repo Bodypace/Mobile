@@ -55,22 +55,43 @@ export default function Login() {
   };
 
   const onSubmit = async (
-    { phase, email, password },
+    { phase, email, password, confirmationCode },
     { setFieldValue, setFieldError }
   ) => {
+    const showError = (msg) => {
+      setFieldError("submitError", msg);
+      setTimeout(() => setFieldError("submitError", ""), 3000);
+    };
+
     console.log("on submit: ");
-    if (phase === DroppablePhase.COVER || phase === DroppablePhase.BOTTOM) {
-      try {
+    try {
+      if (phase === DroppablePhase.COVER) {
         await auth.login(email, password);
-      } catch (e) {
-        console.log("submitError: ", e.message);
-        setFieldError("submitError", "Incorrect email or password");
-        setTimeout(() => setFieldError("submitError", ""), 3000);
+      } else if (phase === DroppablePhase.BOTTOM) {
+        const { success } = await auth.register(
+          email,
+          password,
+          confirmationCode
+        );
+        if (success) {
+          await auth.login(email, password);
+        } else {
+          showError("Incorrect confirmation code");
+        }
+      } else if (phase === DroppablePhase.TOP) {
+        await auth.getRegisterCode(email, password);
+        setFieldValue("phase", DroppablePhase.BOTTOM);
       }
-    } else if (phase === DroppablePhase.TOP) {
-      setFieldValue("phase", DroppablePhase.BOTTOM);
+    } catch (e) {
+      showError("Incorrect email or password");
     }
   };
+
+  const onSendNewCode = ({ values: { email, password } }) =>
+    auth.getRegisterCode(email, password);
+
+  const onGoBack = ({ setFieldValue }) =>
+    setFieldValue("phase", DroppablePhase.TOP);
 
   return (
     <Screen style={styles.screen}>
@@ -97,7 +118,10 @@ export default function Login() {
           <Droppable.Bottom>
             <Texts.ConfirmationCodeSent />
             <Form.Input name="confirmationCode" />
-            <Texts.ResendOrGoBack />
+            <Texts.ResendOrGoBack
+              onSendNewCode={onSendNewCode}
+              onGoBack={onGoBack}
+            />
           </Droppable.Bottom>
 
           <Droppable.Cover>

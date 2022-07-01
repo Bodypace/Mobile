@@ -4,20 +4,8 @@ import { useFormikContext } from "formik";
 import { useTheme } from "../../../utils/themes";
 import { DroppablePhase } from "../droppable/droppable";
 
-export default function FormSwitch() {
-  const { general: colors } = useTheme();
-  const linkColors = {
-    color: colors.primary,
-    borderColor: colors.primary,
-  };
-  const {
-    values: { phase },
-    setFieldValue,
-    setFieldTouched,
-  } = useFormikContext();
-
-  const [keyboardVisible, setKeyboardVisible] = React.useState(false);
-  const [changePhase, setChangePhase] = React.useState(false);
+const useKeyboardState = (initial = false) => {
+  const [keyboardVisible, setKeyboardVisible] = React.useState(initial);
 
   useEffect(() => {
     const listeners = {
@@ -38,6 +26,24 @@ export default function FormSwitch() {
     };
   }, []);
 
+  return keyboardVisible;
+};
+
+export default function FormSwitch() {
+  const { general: colors } = useTheme();
+  const linkColors = {
+    color: colors.primary,
+    borderColor: colors.primary,
+  };
+  const {
+    values: { phase },
+    setFieldValue,
+    setFieldTouched,
+  } = useFormikContext();
+
+  const keyboardVisible = useKeyboardState();
+  const [changePhase, setChangePhase] = React.useState(false);
+
   const switchPhase = () => {
     console.log(" > setting phase");
     setFieldValue(
@@ -50,8 +56,7 @@ export default function FormSwitch() {
     if (changePhase) {
       if (keyboardVisible) {
         Keyboard.dismiss();
-      }
-      else {
+      } else {
         setTimeout(switchPhase, 0);
       }
     }
