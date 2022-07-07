@@ -101,6 +101,7 @@ export default function Login() {
         initialValues={initialValues}
         onSubmit={onSubmit}
       >
+        <Form.Error name="submitError" />
         <GreyBackground top>
           <Form.Email />
           <Form.Password />
@@ -125,7 +126,6 @@ export default function Login() {
           </Droppable.Bottom>
 
           <Droppable.Cover>
-            <Form.Error name="submitError" />
             <Form.Button />
             <Form.Switch />
           </Droppable.Cover>
