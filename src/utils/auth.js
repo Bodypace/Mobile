@@ -57,7 +57,6 @@ export function ProvideAuth({ setIsLoggedIn, children }) {
       return storage.remove("token").then(() => client.resetStore());
     },
     getRegisterCode: async (email, password) => {
-      console.log("getRegisterCode()");
       const response = await client.mutate({
         mutation: GET_REGISTER_CODE_MUTATION,
         variables: {
@@ -65,9 +64,8 @@ export function ProvideAuth({ setIsLoggedIn, children }) {
           password,
         },
       });
-      console.log("getRegisterCode:", { response });
     },
-    register: async (email, password) => {
+    register: async ({ email, password, code }) => {
       const response = await client.mutate({
         mutation: REGISTER_MUTATION,
         variables: {
@@ -76,6 +74,7 @@ export function ProvideAuth({ setIsLoggedIn, children }) {
           code,
         },
       });
+      return response.data.register.success;
     },
   };
 

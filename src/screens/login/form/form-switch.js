@@ -10,12 +10,10 @@ const useKeyboardState = (initial = false) => {
   useEffect(() => {
     const listeners = {
       onShow: Keyboard.addListener("keyboardDidShow", () => {
-        console.log("Keyboard::keyboardDidShow()");
         setKeyboardVisible(true);
       }),
 
       onHide: Keyboard.addListener("keyboardDidHide", () => {
-        console.log("Keyboard::keyboardDidHide()");
         setKeyboardVisible(false);
       }),
     };
@@ -45,7 +43,6 @@ export default function FormSwitch() {
   const [changePhase, setChangePhase] = React.useState(false);
 
   const switchPhase = () => {
-    console.log(" > setting phase");
     setFieldValue(
       "phase",
       phase === DroppablePhase.COVER ? DroppablePhase.TOP : DroppablePhase.COVER

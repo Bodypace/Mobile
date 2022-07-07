@@ -63,24 +63,24 @@ export default function Login() {
       setTimeout(() => setFieldError("submitError", ""), 3000);
     };
 
-    console.log("on submit: ");
     try {
       if (phase === DroppablePhase.COVER) {
+        console.log("login!");
         await auth.login(email, password);
+      } else if (phase === DroppablePhase.TOP) {
+        await auth.getRegisterCode(email, password);
+        setFieldValue("phase", DroppablePhase.BOTTOM);
       } else if (phase === DroppablePhase.BOTTOM) {
-        const { success } = await auth.register(
+        const success = await auth.register({
           email,
           password,
-          confirmationCode
-        );
+          code: confirmationCode,
+        });
         if (success) {
           await auth.login(email, password);
         } else {
           showError("Incorrect confirmation code");
         }
-      } else if (phase === DroppablePhase.TOP) {
-        await auth.getRegisterCode(email, password);
-        setFieldValue("phase", DroppablePhase.BOTTOM);
       }
     } catch (e) {
       showError("Incorrect email or password");

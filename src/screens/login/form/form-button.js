@@ -8,28 +8,12 @@ import { DroppablePhase } from "../droppable/droppable";
 export default function FormButton() {
   const { general: colors } = useTheme();
   const {
-    values: {
-      phase,
-      email,
-      password,
-      passwordRepeat,
-      privacyPolicy,
-      termsAndConditions,
-      confirmationCode,
-    },
-    handleSubmit
+    values: { phase },
+    errors,
+    handleSubmit,
   } = useFormikContext();
 
-  const text = phase === DroppablePhase.COVER ? "Login" : "Register";
-
-  const disabled = 
-    email === "" ||
-    password === "" ||
-    (phase !== DroppablePhase.COVER &&
-      (password !== passwordRepeat ||
-        !privacyPolicy ||
-        !termsAndConditions)) ||
-    (phase === DroppablePhase.BOTTOM && confirmationCode === "");
+  const disabled = Object.keys(errors).length !== 0;
 
   const color = {
     backgroundColor: disabled ? colors.disabled : colors.primary,
@@ -43,9 +27,11 @@ export default function FormButton() {
     <Pressable
       style={[styles.container, color]}
       onPress={handleSubmit}
-      // disabled={disabled}
+      disabled={disabled}
     >
-      <Text style={[styles.text, textColor]}>{text}</Text>
+      <Text style={[styles.text, textColor]}>
+        {phase === DroppablePhase.COVER ? "Login" : "Register"}
+      </Text>
     </Pressable>
   );
 }
