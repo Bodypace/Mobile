@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "clean": "expo start --clear",
-    "dev": "expo start --dev-client",
-    "dev:clean": "expo start --dev-client --clear"
+    "start:clean": "expo start --clear",
+    "start:dev": "expo start --dev-client",
+    "start:dev:clean": "expo start --dev-client --clear"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
