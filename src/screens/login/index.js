@@ -124,7 +124,6 @@ export default function Login() {
               onGoBack={onGoBack}
             />
           </Droppable.Bottom>
-
           <Droppable.Cover>
             <Form.Button />
             <Form.Switch />

@@ -35,7 +35,7 @@ const LoginScreen = () => {
     return <Text>login screen error: {error.message}</Text>;
   }
 
-  return <></>
+  return <></>;
 };
 
 const Icon = ({ focused, name }) => {
