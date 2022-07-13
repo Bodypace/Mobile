@@ -1,10 +1,10 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { Screen } from "../../components/atoms";
-import { DatePicker, Nutrients, Items } from "../../components/molecules";
-import { useDay } from "../../utils/cache";
-import { HOME_QUERY } from "./graph";
-import { WithData } from "../../utils/with-data";
+import { Screen } from "../components/atoms";
+import { DatePicker, Nutrients, Items } from "../components/molecules";
+import { useDay } from "../utils/cache";
+import { HOME_QUERY } from "./queries/home";
+import { WithData } from "../utils/with-data";
 import { useQuery } from "@apollo/client";
 
 export default function Home() {

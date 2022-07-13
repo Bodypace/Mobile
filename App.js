@@ -5,7 +5,7 @@ import { ProvideAuth } from "./src/utils/auth";
 import { ProvideThemes } from "./src/utils/themes";
 import { WithFonts } from "./src/utils/fonts";
 import { ProvideClient } from "./src/utils/client";
-import AppScreen from "./src/screens";
+import Screens from "./src/screens/screens";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -17,7 +17,7 @@ export default function App() {
       <ProvideClient>
         <ProvideAuth setIsLoggedIn={setIsLoggedIn}>
           <ProvideThemes>
-            <AppScreen Tab={Tab} isLoggedIn={isLoggedIn} />
+            <Screens navigator={Tab} isLoggedIn={isLoggedIn} />
             <StatusBar style="auto" />
           </ProvideThemes>
         </ProvideAuth>

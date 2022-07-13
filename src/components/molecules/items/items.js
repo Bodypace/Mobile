@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, ToastAndroid } from 'react-native'
-import ItemsHeader from './items-header'
-import Eat from '../../../screens/diet/items/eat'
-import AddMore from './add-more'
-
+import React, { useState } from "react";
+import { View, StyleSheet, ToastAndroid } from "react-native";
+import ItemsHeader from "./items-header";
+import Eat from "../../organisms/eat";
+import AddMore from "./add-more";
 
 export default function Items({ hour, name, remark, eats }) {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(false);
   return (
     <View>
       <ItemsHeader
@@ -18,15 +17,17 @@ export default function Items({ hour, name, remark, eats }) {
         expanded={expanded}
         setExpanded={setExpanded}
       />
-      <View style={{ display: expanded ? undefined : 'none' }}>
-        {eats.map(eat =>
+      <View style={{ display: expanded ? undefined : "none" }}>
+        {eats.map((eat) => (
           <Eat key={eat.id} item={eat} />
-        )}
-        <AddMore color="darkgreen" onPress={() => ToastAndroid.show("add more", ToastAndroid.SHORT)}/>
+        ))}
+        <AddMore
+          color="darkgreen"
+          onPress={() => ToastAndroid.show("add more", ToastAndroid.SHORT)}
+        />
       </View>
     </View>
-  )
+  );
 }
 
-const styles = StyleSheet.create({
-})
+const styles = StyleSheet.create({});

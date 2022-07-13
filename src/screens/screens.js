@@ -7,7 +7,7 @@ import Diet from "./diet";
 import Home from "./home";
 import Settings from "./settings";
 import { useAuth } from "../utils/auth";
-import { USER_QUERY } from "./settings/graph";
+import { USER_QUERY } from "./queries/settings";
 import Splash from "./login/splash";
 import { useQuery } from "@apollo/client";
 
@@ -43,20 +43,20 @@ const Icon = ({ focused, name }) => {
   return <Ionicons name={iconName} size={20} color="black" />;
 };
 
-export default function AppScreen({ Tab, isLoggedIn }) {
+export default function Screens({ navigator, isLoggedIn }) {
   if (!isLoggedIn) {
     return <LoginScreen />;
   }
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <navigator.Navigator
         initialRouteName="Diet"
         barStyle={{
           backgroundColor: "darkgreen",
         }}
       >
-        <Tab.Screen
+        <navigator.Screen
           name="Diet"
           component={Diet}
           options={{
@@ -65,14 +65,14 @@ export default function AppScreen({ Tab, isLoggedIn }) {
             ),
           }}
         />
-        <Tab.Screen
+        <navigator.Screen
           name="Home"
           component={Home}
           options={{
             tabBarIcon: ({ focused }) => <Icon focused={focused} name="home" />,
           }}
         />
-        <Tab.Screen
+        <navigator.Screen
           name="Settings"
           component={Settings}
           options={{
@@ -81,7 +81,7 @@ export default function AppScreen({ Tab, isLoggedIn }) {
             ),
           }}
         />
-      </Tab.Navigator>
+      </navigator.Navigator>
     </NavigationContainer>
   );
 }

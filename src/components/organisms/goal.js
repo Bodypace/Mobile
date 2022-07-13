@@ -1,14 +1,13 @@
-import React from "react"
-import { StyleSheet } from "react-native"
-import { Item } from "../../../components/molecules"
-import { define as title } from "../../../modals/edit/elements/title"
-import { define as separator } from "../../../modals/edit/elements/separator"
-import { define as field } from "../../../modals/edit/elements/field"
-import { define as legend } from "../../../modals/edit/elements/legend"
-import { roboto } from "../../../utils/fonts"
-import { selectedGoalId } from "../../../utils/cache"
-import { gql, useApolloClient } from '@apollo/client';
-
+import React from "react";
+import { StyleSheet } from "react-native";
+import { Item } from "../molecules";
+import { define as title } from "../../modals/edit/elements/title";
+import { define as separator } from "../../modals/edit/elements/separator";
+import { define as field } from "../../modals/edit/elements/field";
+import { define as legend } from "../../modals/edit/elements/legend";
+import { roboto } from "../../utils/fonts";
+import { selectedGoalId } from "../../utils/cache";
+import { gql, useApolloClient } from "@apollo/client";
 
 const GOAL_MUTATION = gql`
   mutation PatchGoal($id: ID!, $data: GoalPatch!) {
@@ -30,15 +29,15 @@ const GOAL_MUTATION = gql`
 `;
 
 export default function Goal(goal) {
-  const client = useApolloClient()
+  const client = useApolloClient();
 
   const edit = {
     name: "Edit",
     layout: [
       title,
       separator,
-      [field.text("name", i => i.name)],
-      [field.text("since", i => i.daySince)],
+      [field.text("name", (i) => i.name)],
+      [field.text("since", (i) => i.daySince)],
       separator,
       legend.perDay,
       field.number("water"),
@@ -52,9 +51,9 @@ export default function Goal(goal) {
     action: (id, data) =>
       client.mutate({
         mutation: GOAL_MUTATION,
-        variables: { id, data }
-      })
-  }
+        variables: { id, data },
+      }),
+  };
 
   return (
     <Item
@@ -63,12 +62,12 @@ export default function Goal(goal) {
       remark="active"
       leftValue={goal.daySince}
       rightValue={`${goal.water} L`}
-      nutrientsToShow={['kcal', 'protein', 'carb', 'fat', 'salt']}
+      nutrientsToShow={["kcal", "protein", "carb", "fat", "salt"]}
       item={goal}
       overlays={[edit]}
       setSelectedId={selectedGoalId}
     />
-  )
+  );
 }
 
 const commonStyle = StyleSheet.create({
@@ -76,7 +75,7 @@ const commonStyle = StyleSheet.create({
     fontFamily: roboto.light,
     fontSize: 16,
   },
-})
+});
 
 export const styles = StyleSheet.create({
   container: {
@@ -94,4 +93,4 @@ export const styles = StyleSheet.create({
   remark: commonStyle.text,
   leftValue: commonStyle.text,
   rightValue: commonStyle.text,
-})
+});

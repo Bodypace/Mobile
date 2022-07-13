@@ -1,14 +1,14 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Screen } from "../../components/atoms";
-import { Logo } from "../../components/molecules";
-import { useAuth } from "../../utils/auth";
+import { Screen } from "../components/atoms";
+import { Logo } from "../components/molecules";
+import { useAuth } from "../utils/auth";
 import * as Yup from "yup";
-import Form from "./form";
-import Droppable from "./droppable";
-import { DroppablePhase } from "./droppable/droppable";
-import Texts from "./texts/texts";
-import GreyBackground from "./grey-background";
+import Form from "./login/form";
+import Droppable from "./login/droppable";
+import { DroppablePhase } from "./login/droppable/droppable";
+import Texts from "./login/texts/texts";
+import GreyBackground from "./login/grey-background";
 
 export default function Login() {
   const auth = useAuth();

@@ -1,11 +1,10 @@
 import React from "react";
-import { StyleSheet } from 'react-native';
-import { SpacedTexts } from "../../../components/atoms";
-import { roboto } from "../../../utils/fonts";
-
+import { StyleSheet } from "react-native";
+import { SpacedTexts } from "../atoms";
+import { roboto } from "../../utils/fonts";
 
 export default function Setting({ name, value, onPress, color, header }) {
-  const styles = header ? headerStyles : entryStyles
+  const styles = header ? headerStyles : entryStyles;
 
   return (
     <SpacedTexts
@@ -16,7 +15,7 @@ export default function Setting({ name, value, onPress, color, header }) {
       right={value}
       onPressRight={onPress}
     />
-  )
+  );
 }
 
 const headerStyles = StyleSheet.create({
@@ -32,7 +31,7 @@ const headerStyles = StyleSheet.create({
     fontFamily: roboto.light,
     fontSize: 16,
   },
-})
+});
 
 const entryStyles = StyleSheet.create({
   container: {
@@ -47,4 +46,4 @@ const entryStyles = StyleSheet.create({
     fontFamily: roboto.light,
     fontSize: 18,
   },
-})
+});

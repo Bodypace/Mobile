@@ -1,13 +1,12 @@
-import React from "react"
-import { StyleSheet } from "react-native"
-import { Item } from "../../../components/molecules"
-import { define as title } from "../../../modals/edit/elements/title"
-import { define as separator } from "../../../modals/edit/elements/separator"
-import { define as field } from "../../../modals/edit/elements/field"
-import { roboto } from "../../../utils/fonts"
-import { selectedMealId } from "../../../utils/cache"
-import { gql, useApolloClient } from '@apollo/client';
-
+import React from "react";
+import { StyleSheet } from "react-native";
+import { Item } from "../molecules";
+import { define as title } from "../../modals/edit/elements/title";
+import { define as separator } from "../../modals/edit/elements/separator";
+import { define as field } from "../../modals/edit/elements/field";
+import { roboto } from "../../utils/fonts";
+import { selectedMealId } from "../../utils/cache";
+import { gql, useApolloClient } from "@apollo/client";
 
 const MEAL_MUTATION = gql`
   mutation PatchMeal($id: ID!, $data: MealPatch!) {
@@ -25,7 +24,7 @@ const MEAL_MUTATION = gql`
 `;
 
 export default function Meal(meal) {
-  const client = useApolloClient()
+  const client = useApolloClient();
 
   const edit = {
     name: "Edit",
@@ -33,23 +32,23 @@ export default function Meal(meal) {
       title,
       separator,
       [
-        field.text("name", i => i.name),
-        field.text("default hour", i => i.defaultHour.slice(0, 5)),
+        field.text("name", (i) => i.name),
+        field.text("default hour", (i) => i.defaultHour.slice(0, 5)),
       ],
       [
-        field.text("since", i => i.daySince),
-        field.text("until", i => i.dayUntil || "-"),
+        field.text("since", (i) => i.daySince),
+        field.text("until", (i) => i.dayUntil || "-"),
       ],
       separator,
     ],
     action: (id, data) =>
       client.mutate({
         mutation: MEAL_MUTATION,
-        variables: { id, data }
-      })
-  }
+        variables: { id, data },
+      }),
+  };
 
-  const dayUntil = meal.dayUntil || "now"
+  const dayUntil = meal.dayUntil || "now";
 
   return (
     <Item
@@ -62,7 +61,7 @@ export default function Meal(meal) {
       overlays={[edit]}
       setSelectedId={selectedMealId}
     />
-  )
+  );
 }
 
 const commonStyle = StyleSheet.create({
@@ -70,7 +69,7 @@ const commonStyle = StyleSheet.create({
     fontFamily: roboto.light,
     fontSize: 16,
   },
-})
+});
 
 export const styles = StyleSheet.create({
   container: {
@@ -88,4 +87,4 @@ export const styles = StyleSheet.create({
   remark: commonStyle.text,
   leftValue: commonStyle.text,
   rightValue: commonStyle.text,
-})
+});
