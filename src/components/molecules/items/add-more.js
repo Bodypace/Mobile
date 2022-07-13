@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Modal, Pressable, StyleSheet, Text } from 'react-native';
+import { Modal, Pressable, StyleSheet, Text } from "react-native";
 import Products from "../../../screens/products";
 
 export default function AddMore({ color, onPress }) {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -14,7 +14,7 @@ export default function AddMore({ color, onPress }) {
         <Text style={[styles.text, { color }]}>(add more)</Text>
       </Pressable>
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -23,5 +23,5 @@ const styles = StyleSheet.create({
   },
   text: {
     marginHorizontal: 10,
-  }
-})
+  },
+});
