@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
-import { roboto } from "../../../utils/fonts";
-import { useTheme } from "../../../utils/themes";
+import { roboto } from "../../../../utils/fonts";
+import { useTheme } from "../../../../utils/themes";
 import { useFormikContext } from "formik";
 import { DroppablePhase } from "../droppable/droppable";
 

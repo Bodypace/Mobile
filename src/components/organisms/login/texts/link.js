@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, Pressable, StyleSheet } from "react-native";
-import { useTheme } from '../../../utils/themes';
+import { useTheme } from "../../../../utils/themes";
 
 export default function Text_Link({ children, onPress }) {
   const { general: colors } = useTheme();

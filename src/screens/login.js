@@ -4,11 +4,11 @@ import { Screen } from "../components/atoms";
 import { Logo } from "../components/molecules";
 import { useAuth } from "../utils/auth";
 import * as Yup from "yup";
-import Form from "./login/form";
-import Droppable from "./login/droppable";
-import { DroppablePhase } from "./login/droppable/droppable";
-import Texts from "./login/texts/texts";
-import GreyBackground from "./login/grey-background";
+import Form from "../components/organisms/login/form";
+import Droppable from "../components/organisms/login/droppable";
+import { DroppablePhase } from "../components/organisms/login/droppable/droppable";
+import Texts from "../components/organisms/login/texts/texts";
+import GreyBackground from "../components/organisms/login/grey-background";
 
 export default function Login() {
   const auth = useAuth();

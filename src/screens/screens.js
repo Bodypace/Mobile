@@ -8,7 +8,7 @@ import Home from "./home";
 import Settings from "./settings";
 import { useAuth } from "../utils/auth";
 import { USER_QUERY } from "./queries/settings";
-import Splash from "./login/splash";
+import Splash from "./splash";
 import { useQuery } from "@apollo/client";
 
 const LoginScreen = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Pressable, Text, StyleSheet } from "react-native";
-import { useTheme } from "../../../utils/themes";
+import { useTheme } from "../../../../utils/themes";
 import { useFormikContext } from "formik";
 import { DroppablePhase } from "../droppable/droppable";
 

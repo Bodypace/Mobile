@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Keyboard, Text, StyleSheet, Pressable } from "react-native";
 import { useFormikContext } from "formik";
-import { useTheme } from "../../../utils/themes";
+import { useTheme } from "../../../../utils/themes";
 import { DroppablePhase } from "../droppable/droppable";
 
 const useKeyboardState = (initial = false) => {
