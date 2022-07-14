@@ -10,18 +10,19 @@ import { DIET_QUERY } from "./queries/diet";
 import { WithData } from "../utils/with-data";
 import { useQuery } from "@apollo/client";
 
-export default function Diet() {
+export const useDietQuery = () => {
   const day = useDay();
-  const useDietQuery = () =>
-    useQuery(DIET_QUERY, {
-      variables: { day },
-      // fetchPolicy: "network-only"
-    });
+  return useQuery(DIET_QUERY, {
+    variables: { day },
+    // fetchPolicy: "network-only"
+  });
+};
 
+export default function Diet() {
   return <WithData Screen={DietScreen} useQuery={useDietQuery} />;
 }
 
-function DietScreen({
+export function DietScreen({
   data: {
     diet: { goal, water, mealTimes },
   },
@@ -31,14 +32,8 @@ function DietScreen({
       <DatePicker />
       <ScrollView style={styles.content}>
         <Water water={water} goal={goal} />
-        {mealTimes.map(({ hour, meal, eats }) => (
-          <Items
-            key={meal.name}
-            hour={hour}
-            name={meal.name}
-            remark="13 PLN"
-            eats={eats}
-          />
+        {mealTimes.map(({ hour, meal: { name }, eats }) => (
+          <Items key={name} {...{ name, hour, eats }} remark="13 PLN" />
         ))}
       </ScrollView>
       <Nutrients

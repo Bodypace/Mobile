@@ -11,13 +11,10 @@ import { useQuery } from "@apollo/client";
 import Selector from "../components/organisms/selector";
 import Search from "../components/organisms/search";
 
+export const useProductsQuery = () => useQuery(PRODUCTS_QUERY);
+
 export default function Products() {
-  return (
-    <WithData
-      Screen={ProductsScreen}
-      useQuery={() => useQuery(PRODUCTS_QUERY)}
-    />
-  );
+  return <WithData Screen={ProductsScreen} useQuery={useProductsQuery} />;
 }
 
 function ProductsScreen({ data: { products } }) {

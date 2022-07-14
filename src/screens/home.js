@@ -9,14 +9,14 @@ import { HOME_QUERY } from "./queries/home";
 import { WithData } from "../utils/with-data";
 import { useQuery } from "@apollo/client";
 
-export default function Home() {
+export const useHomeQuery = () => {
   const day = useDay();
-  const useHomeQuery = () =>
-    useQuery(HOME_QUERY, {
-      variables: { day },
-      // fetchPolicy: "network-only"
-    });
+  return useQuery(HOME_QUERY, {
+    variables: { day },
+  });
+};
 
+export default function Home() {
   return <WithData Screen={HomeScreen} useQuery={useHomeQuery} />;
 }
 

@@ -12,10 +12,10 @@ import { USER_QUERY } from "./queries/settings";
 import { WithData } from "../utils/with-data";
 import { useQuery } from "@apollo/client";
 
-export default function Settings() {
-  const useUserQuery = () =>
-    useQuery(USER_QUERY, { fetchPolicy: "network-only" });
+export const useUserQuery = () =>
+  useQuery(USER_QUERY, { fetchPolicy: "network-only" });
 
+export default function Settings() {
   return <WithData Screen={SettingsScreen} useQuery={useUserQuery} />;
 }
 
