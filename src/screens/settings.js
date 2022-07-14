@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import Screen from "../components/basic/screen";
 import Separator from "../components/basic/separator";
-import Logo from "../components/molecules/logo";
+import Logo from "../components/dummy/logo";
 import Setting from "../components/organisms/setting";
 import Goal from "../components/organisms/goal";
 import Meal from "../components/organisms/meal";

@@ -1,9 +1,9 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import Screen from "../components/basic/screen";
-import DatePicker from "../components/molecules/date-picker/date-picker";
-import Nutrients from "../components/molecules/nutrients/nutrients";
-import Items from "../components/molecules/items/items";
+import DatePicker from "../components/dummy/date-picker/date-picker";
+import Nutrients from "../components/dummy/nutrients/nutrients";
+import Items from "../components/dummy/items/items";
 import { useDay } from "../utils/cache";
 import { HOME_QUERY } from "./queries/home";
 import { WithData } from "../utils/with-data";
