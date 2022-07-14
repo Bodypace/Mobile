@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { ItemsHeader } from "./items";
+import ItemsHeader from "./items/items-header";
 
 export default function Water({ water, goal }) {
   const current = water.reduce((sum, glass) => sum + glass.amount, 0);

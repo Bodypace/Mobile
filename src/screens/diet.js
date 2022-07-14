@@ -1,7 +1,10 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import Screen from "../components/atoms/screen";
-import { DatePicker, Nutrients, Items, Water } from "../components/molecules";
+import DatePicker from "../components/molecules/date-picker/date-picker";
+import Nutrients from "../components/molecules/nutrients/nutrients";
+import Items from "../components/molecules/items/items";
+import Water from "../components/molecules/water";
 import { useDay } from "../utils/cache";
 import { DIET_QUERY } from "./queries/diet";
 import { WithData } from "../utils/with-data";
