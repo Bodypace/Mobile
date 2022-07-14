@@ -31,6 +31,9 @@ const LoginScreen = () => {
     return <Login />;
   }
 
+  // TODO on 404 logout? (when user was deleted and thus token is refering to not existing user)
+  // TODO: will it be exploitable when token is held but user gets deleted and new one created with matching id?
+
   if (error) {
     return <Text>login screen error: {error.message}</Text>;
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { Screen, Separator } from "../components/atoms";
+import Screen from "../components/atoms/screen";
+import Separator from "../components/atoms/separator";
 import { Logo } from "../components/molecules";
 import Setting from "../components/organisms/setting";
 import Goal from "../components/organisms/goal";

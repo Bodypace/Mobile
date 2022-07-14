@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
-import { Screen } from "../components/atoms";
+import Screen from "../components/atoms/screen";
 import { DatePicker, Nutrients, Items, Water } from "../components/molecules";
 import { useDay } from "../utils/cache";
 import { DIET_QUERY } from "./queries/diet";
