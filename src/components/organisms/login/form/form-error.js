@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useFormikContext } from "formik";
-import Modal from "../../../../components/atoms/modal";
+import Modal from "../../../basic/modal";
 
 export default function FormError({ name }) {
   const {

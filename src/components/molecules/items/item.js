@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Pressable, StyleSheet } from "react-native";
-import Separator from "../../atoms/separator";
-import SpacedTexts from "../../atoms/spaced-texts";
+import Separator from "../../basic/separator";
+import SpacedTexts from "../../basic/spaced-texts";
 import Nutrients from "../nutrients/nutrients";
 import ItemButton from "./item-button";
 import EditModal from "../../../modals/edit";

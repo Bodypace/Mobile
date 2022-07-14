@@ -9,7 +9,7 @@ import { useAuth } from "../utils/auth";
 import { USER_QUERY } from "./queries/settings";
 import Splash from "./splash";
 import { useQuery } from "@apollo/client";
-import Icon from "../components/atoms/icon";
+import Icon from "../components/basic/icon";
 
 const LoginScreen = () => {
   const auth = useAuth();

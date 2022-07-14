@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { View, Text, Pressable, StyleSheet, Vibration } from "react-native";
-import TextInput from "../../../components/atoms/text-input";
+import TextInput from "../../../components/basic/text-input";
 import { roboto } from "../../../utils/fonts";
 import { useTheme } from "../../../utils/themes";
 

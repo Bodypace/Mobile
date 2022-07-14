@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import SpacedTexts from "../atoms/spaced-texts";
+import SpacedTexts from "../basic/spaced-texts";
 import { roboto } from "../../utils/fonts";
 
 export default function Setting({ name, value, onPress, color, header }) {

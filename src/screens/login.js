@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import Screen from "../components/atoms/screen";
+import Screen from "../components/basic/screen";
 import Logo from "../components/molecules/logo";
 import { useAuth } from "../utils/auth";
 import * as Yup from "yup";

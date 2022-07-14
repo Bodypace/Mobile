@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-import Modal from "../../components/atoms/modal";
+import Modal from "../../components/basic/modal";
 import Elements from "./elements";
 import Button from "./button";
 

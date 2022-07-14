@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import Separator from "../components/atoms/separator";
-import Screen from "../components/atoms/screen";
+import Separator from "../components/basic/separator";
+import Screen from "../components/basic/screen";
 import Nutrients from "../components/molecules/nutrients/nutrients";
 import ItemButton from "../components/molecules/items/item-button";
 import Product from "../components/organisms/product";
