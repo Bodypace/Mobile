@@ -14,7 +14,7 @@ export const useDietQuery = () => {
   const day = useDay();
   return useQuery(DIET_QUERY, {
     variables: { day },
-    // fetchPolicy: "network-only"
+    fetchPolicy: "network-only",
   });
 };
 
